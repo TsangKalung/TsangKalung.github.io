@@ -1,1 +1,4 @@
 /node_modules
+/package.josn
+/package-lock.josn
+/.gitignore
