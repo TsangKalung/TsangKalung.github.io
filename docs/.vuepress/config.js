@@ -3,6 +3,9 @@ module.exports = {
   description: "Tsang's tech-diary",
   base: "/",
   dest: "./docs/.vuepress/dist",
+  head: [
+    ['link', { rel: 'icon', href: `./favicon.ico` }]
+  ],
 
   themeConfig: {
     nav: [{
