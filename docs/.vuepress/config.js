@@ -18,7 +18,7 @@ module.exports = {
     sidebar: [{
       title: "About",
       collapsable: false,
-      children: ["/", "/Interview.md"]
+      children: ["/"]
     },
     {
       title: "Dairy",
