@@ -4,7 +4,10 @@ module.exports = {
   base: "/",
   dest: "./docs/.vuepress/dist",
   head: [
-    ['link', { rel: 'icon', href: `./favicon.ico` }]
+    ['link', {
+      rel: 'icon',
+      href: `./favicon.ico`
+    }]
   ],
 
   themeConfig: {
@@ -45,9 +48,18 @@ module.exports = {
         "2018/10/4.md",
         "2018/10/9.md",
         "2018/10/16.md",
-        '/2019/2019年如何在App Store上架.md'
       ]
-    }
+    },
+    {
+      title: "Feeling",
+      collapsable: false,
+      children: ['/2019/北京的夜雨.md']
+    },
+    {
+      title: "Blog",
+      collapsable: false,
+      children: ['/2019/2019年如何在App Store上架.md']
+    },
     ]
   }
 };
