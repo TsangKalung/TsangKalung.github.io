@@ -60,6 +60,11 @@ module.exports = {
       collapsable: false,
       children: ['/2019/2019年如何在App Store上架.md']
     },
+    {
+      title: "Photograph",
+      collapsable: false,
+      children:['/photograph/urban.md']
+    }
     ]
   }
 };
