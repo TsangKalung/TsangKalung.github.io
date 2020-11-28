@@ -159,7 +159,7 @@ void function() {
 <p>STS 基本类型根据 JavaScript 语义进行处理。特别要强调的是，所有的数字类型在理论上都是 IEEE 64 位浮点类型，但也有可能实际使用 31 位带符号标记的整数类型。运算符的实现（例如加法或比较）基于动态值的分支，以遵循 JavaScript 语义，并在汇编中手动实现了整数类型的快速实现。</p>
 <p>STS 既是 TypeScript 的语法子集又是语义子集，这意味着，如果程序在 STS 中成功编译，它将具有与等效 TypeScript 程序相同的语义，否则该程序会在运行时崩溃（在上述情况下）。</p>
 <h3>2.1 与 C++ 进行交互操作</h3>
-<p>STS 程序运行在单片机上由 C++、C、汇编实现的运行时里。该运行时实现了语言的基础构件（操作符、集合、类的支持、动态映射等），同样也支持对底层硬件的访问。该运行时能被包集成，相关详情见 2.2 节。</p>
+<p>STS 程序运行在单片机上由 C++、C、汇编实现的运行时里。该运行时实现了语言的基础构件（操作符、集合、类的支持、动态映射等），同样也支持对底层硬件的访问。该运行时能用包进行拓展，相关详情见 2.2 节。</p>
 <p>STS 支持调用 C++ 函数，反之，亦可以从 C++ 调用 STS 函数。为了简化这个过程，STS 使用了一直能够简单的代码生成策略，即在 C++ 函数中使用特殊的注释（<code class="language-text">//%</code>）指定那些代码需要导出为 STS，这样的策略还用于导出为 Blockly 代码块（使用注释<code class="language-text">//% block</code>）。构建中有一个步骤是解析 C++代码获取这些特殊的注释，还会收集这些函数的原型（签名），从而在调用它们时可以生成正确的转换。举个转换的例子：</p>
 <div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// C++源码:</span>
 <span class="token keyword">namespace</span> control <span class="token punctuation">{</span>
