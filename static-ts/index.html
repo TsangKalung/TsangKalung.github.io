@@ -154,10 +154,10 @@ void function() {
 <li><em>数组</em>（集合）类型</li>
 </ol>
 <p>某种程度上，STS 与 Java 和 C# 的风味更接近，它们都把类型视作「抽象的守护神」（protectors of abstractions），而不像 JavaScript 那样允许更加自由地处理对象。在 3.4 节的讨论中，运行时类型标签（type tags）用于区分上面列出的不同种类的内置对象类型（以及诸如装箱数字（boxed number）和字符串之类的语言基础构件）。</p>
-<p>与 TypeScript 中一样，类型转换不会生成任何代码且不会失败。相反，STS 在字段/方法访问点保护名义上的类抽象。当<code class="language-text">x == null</code>时，<code class="language-text">x.f</code>在 JavaScript 中会导致运行时错误。如果<code class="language-text">T</code>是具有字段<code class="language-text">f</code>的类，并且<code class="language-text">x</code>的动态类型不是<code class="language-text">T</code>的名义子类型，则<code class="language-text">(x as T).f</code>在 STS 中将导致运行时错误.如果<code class="language-text">T</code>是接口，<code class="language-text">any</code>或某种复杂类型（例如，union 或 intersection），则与<code class="language-text">x</code>的动态类型无关，而是根据名称查找该字段。</p>
+<p>与 TypeScript 中一样，类型转换不会生成任何代码且不会失败。相反，STS 在字段/方法访问点保护名义上的类抽象。当<code class="language-text">x == null</code>时，<code class="language-text">x.f</code>在 JavaScript 中会导致运行时错误。如果<code class="language-text">T</code>是具有字段<code class="language-text">f</code>的类，并且<code class="language-text">x</code>的动态类型不是<code class="language-text">T</code>的名义子类型，则<code class="language-text">(x as T).f</code>在 STS 中将导致运行时错误。如果<code class="language-text">T</code>是接口、<code class="language-text">any</code>或某种复杂类型（例如，union 或 intersection），则与<code class="language-text">x</code>的动态类型无关，而是根据名称查找该字段。</p>
 <p>其他抽象在运行时中也受到保护，正如在 JavaScript 中那样：例如，对非<em>函数</em>类型的对象进行函数调用。现在，将属性动态添加到除<code class="language-text">map</code>类型之外的任何其他类型是错误的。我们将来可能会取消对动态 JavaScript 语义的限制，这取决于用户的反馈。迄今为止，在我们的用户社区（教育工作者和开发人员）中还没有收到任何关于这些限制的负面反馈。</p>
 <p>STS 基本类型根据 JavaScript 语义进行处理。特别要强调的是，所有的数字类型在理论上都是 IEEE 64 位浮点类型，但也有可能实际使用 31 位带符号标记的整数类型。运算符的实现（例如加法或比较）基于动态值的分支，以遵循 JavaScript 语义，并在汇编中手动实现了整数类型的快速实现。</p>
-<p>STS 既是 TypeScript 的语法子集又是语义子集，这意味着，如果程序在 STS 中成功编译，它将具有与等效 TypeScript 程序相同的语义，否则它无法完成编译（？）。</p>
+<p>STS 既是 TypeScript 的语法子集又是语义子集，这意味着，如果程序在 STS 中成功编译，它将具有与等效 TypeScript 程序相同的语义，否则它无法完成编译（在上述情况下）。</p>
 <h3>2.1 与 C++ 进行交互操作</h3>
 <p>STS 程序运行在单片机上由 C++、C、汇编实现的运行时里。该运行时实现了语言的基础构件（操作符、集合、类的支持、动态映射等），同样也支持对底层硬件的访问。该运行时能被包集成，相关详情见 2.2 节。</p>
 <p>STS 支持调用 C++ 函数，反之，亦可以从 C++ 调用 STS 函数。为了简化这个过程，STS 使用了一直能够简单的代码生成策略，即在 C++ 函数中使用特殊的注释（<code class="language-text">//%</code>）指定那些代码需要导出为 STS，这样的策略还用于导出为 Blockly 代码块（使用注释<code class="language-text">//% block</code>）。构建中有一个步骤是解析 C++代码获取这些特殊的注释，还会收集这些函数的原型（签名），从而在调用它们时可以生成正确的转换。举个转换的例子：</p>
