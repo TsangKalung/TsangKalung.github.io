@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{wRH0:function(t,e,a){"use strict";a.r(e);var n=a("q1tI"),i=a.n(n),l=a("Bl7J"),r=a("vrFN");e.default=function(t){var e=t.data,a=t.location,n=e.site.siteMetadata.title;return i.a.createElement(l.a,{location:a,title:n},i.a.createElement(r.a,{title:"Dairy"}),i.a.createElement("h1",null,"My Tech-diary"))}}}]);
-//# sourceMappingURL=component---src-pages-dairy-tsx-6783b0c973504da34324.js.map
