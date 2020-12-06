@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 03 Dec 2020 14:36:34 GMT</lastBuildDate><item><title><![CDATA[【WIP】译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał Moskal…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 06 Dec 2020 09:54:12 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
 &lt;p&gt;作者：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Thomas Ball&lt;/strong&gt;，微软研究院，Redmond，tball@microsoft.com&lt;/li&gt;
@@ -7,17 +7,17 @@
 &lt;/ol&gt;
 &lt;h2&gt;综述&lt;/h2&gt;
 &lt;p&gt;基于单片机的嵌入式设备通常使用 C 语言进行编程。这类设备如今进入了计算机科学教学的课堂，甚至一些中学也开办了相关的课程。于是，用于单片机编程的脚本语言（如 JavaScript 和 Python）使用也逐渐增加。&lt;/p&gt;
-&lt;p&gt;我们研发了 Static TypeScript（STS），它是 TypeScript 的一种子集（而 TypeScript 本身是 JavaScript 的超集），还研发了相关的编译/链接工具链，它们全部使用 TypeScript 进行开发并且在浏览器中运行。STS 为实践而设计（特别是实践教学），适合针对小型设备的静态编译。用户编写的 STS 程序将在浏览器中被编译成机器码，并链接预编译的 C++运行时，生成比普通的嵌入式解释器更高效的可执行文件，从而延长电池寿命并可以在 RAM 低达 16kB 的设备上运行（例如 BBC micro:bit）。本论文主要对实现 STS 系统和适用于课堂教学的嵌入式编程平台的技术挑战进行综述。&lt;/p&gt;
+&lt;p&gt;我们研发了 Static TypeScript（STS），它是 TypeScript 的一种子集（而 TypeScript 本身是 JavaScript 的超集），还研发了相关的编译/链接工具链，它们全部使用 TypeScript 进行开发并且在浏览器中运行。STS 为实践开发而设计（特别是实践教学），适合针对小型设备的静态编译。用户开发的 STS 程序将在浏览器中被编译成机器码，并链接预编译的 C++ 运行时，生成比普通的嵌入式解释器更高效的可执行文件，从而延长电池寿命并可以在 RAM 低达 16kB 的设备（例如 BBC micro:bit）上运行。本论文主要对实现 STS 系统和开发适用于课堂教学的嵌入式编程平台的技术挑战进行综述。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;关键词：&lt;/strong&gt;JavaScript，TypeScript，编译器，解释器，单片机，虚拟机&lt;/p&gt;
 &lt;h2&gt;1 简介&lt;/h2&gt;
-&lt;p&gt;近来，课堂上计算机的实物教学不断地发展，鼓励孩子们构建自己的简单的交互嵌入式系统。例如，图 1（a）展示了 BBC micro:bit[1]，它是一种受 Arduino 启发的小型可编程计算机，拥有集成的 5X5 LED 显示点阵、几个传感器和低功耗蓝牙（BLE）无线传输。该设备与 2015 年首次向英国所有 7 年级学生推出（10 至 11 岁），随后走向全球，迄今为止已经通过 micro:bit 教育基金会（ &lt;a href=&quot;https://microbit.org&quot;&gt;https://microbit.org&lt;/a&gt; ）发放了四百万个设备。图 1（b）则展示了另一个以 RGB LED 为特点的教育设备 Adafruit’s Circuit Playground Express (CPX)。&lt;/p&gt;
+&lt;p&gt;近年来，课堂上计算机的实物教学不断地发展，以鼓励孩子们构建自己的简单的交互嵌入式系统。例如，图 1（a）展示了 BBC micro:bit[1]，它是一种受 Arduino 启发的小型可编程单片机，带有集成的 5X5 LED 显示点阵、几个传感器和低功耗蓝牙（BLE）无线传输。该设备与 2015 年首次向英国所有 7 年级学生推出（10 至 11 岁），随后走向全球，迄今为止 micro:bit 教育基金会（ &lt;a href=&quot;https://microbit.org&quot;&gt;https://microbit.org&lt;/a&gt; ）已经发放了四百万个设备。图 1（b）则展示了另一个以 RGB LED 为特点的教育设备 Adafruit’s Circuit Playground Express (CPX)。&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/6c68b/1.png&quot;
+    href=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/6c68b/figure_1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -30,13 +30,13 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;图1&quot;
         title=&quot;图1&quot;
-        src=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/fcda8/1.png&quot;
-        srcset=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/12f09/1.png 148w,
-/static/a99b064967e9368263d4f1bb52ca18e4/e4a3f/1.png 295w,
-/static/a99b064967e9368263d4f1bb52ca18e4/fcda8/1.png 590w,
-/static/a99b064967e9368263d4f1bb52ca18e4/efc66/1.png 885w,
-/static/a99b064967e9368263d4f1bb52ca18e4/c83ae/1.png 1180w,
-/static/a99b064967e9368263d4f1bb52ca18e4/6c68b/1.png 1888w&quot;
+        src=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/fcda8/figure_1.png&quot;
+        srcset=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/12f09/figure_1.png 148w,
+/static/a99b064967e9368263d4f1bb52ca18e4/e4a3f/figure_1.png 295w,
+/static/a99b064967e9368263d4f1bb52ca18e4/fcda8/figure_1.png 590w,
+/static/a99b064967e9368263d4f1bb52ca18e4/efc66/figure_1.png 885w,
+/static/a99b064967e9368263d4f1bb52ca18e4/c83ae/figure_1.png 1180w,
+/static/a99b064967e9368263d4f1bb52ca18e4/6c68b/figure_1.png 1888w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -60,26 +60,24 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/27284f7d8f183b0570238d2ea92da2f3/669eb/2.png&quot;
+    href=&quot;/static/38ae4fc4f46d4915ad282e58fad72977/79e48/figure_2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 93.24324324324323%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAABYlAAAWJQFJUiTwAAAFNUlEQVQ4yx2TeVCUZQDGvyZvMgyLxKw8mnQmJ7UyPDiazKvUhFGsFFwQUJZDglRuUQivPFBTKAURFEniFDnk3F1g2ZM9WBZYjkBFG83Of5rq14t/PDPffO/M73ue93k+6cFgNw+HeoR6GR2w8/vDYU4d+xqNop5HIw5Gei1CZobtRkZ6TNzt0mBquUWPVTw7bNzr78OhqcOqbmC4pxPp/kD3U9D9fnHo6OLxXQe7ZDsoyMnml3v9DHTpGezSMWTVcd9uwpEnpynMFfPlCHpL0hj6MRFz4hxuJPtitxiQ7jmsjOlun3DSZ2Wg24S3lwfpBxN5PCK+btEyYNEwYtMzrK1n+OAsSna/ybFIHxIi/EmN+pyG6HnUxryFulWFNNw3Zt3CYLfxabwhEc/rA28OJSfwcNCGTafEpm1hWEB/UlcxHP8i70ddRDoO49L+REr8jwMRMpoPLEav0SD1WrWkpKYRHhmFn7+c4O1h7ItMIb+gjnNZ5eJ9LOs3+pJ74Syj+jp697vy9t6rSKn/MDHhEZJ8iMOBa2hO9sBkEJFt+g681vuxePlHuG/ZzTtXq1hSZWRJUz/vHMxmxXJvps9fSXJcPA+M9Zj2v86mj32Y/8FeFnnKWLgikKwtbjSkb8JmMSHZOzUEh4WxbtWHrIrP4LknIA3+gTQKTpk/4PHWbBYt8yIlPp57uhr6k2aTvXky1QGT6ZRPoErmhCJoHE3no+m3WwTQoMZ3p5yAoHAycm6y9+Ff7Bz9jS9+/Rfv8wW8u2A2zm+sRB55gCfGKnJl8zjrO51TPi9TGOjKEZ8ZXN06BfW1DBzdAtilbyUh/RTp32Rx+nw2+zOzCM24hF9qIWv9E1nutY5XFq0WwP08UJehjZ7J6U3OlMteEJrGte0ujMaOR3UjkwG7VZRiVqNUNHI2K5dd8hjWbgjA+5Molq5JYunqvSxY/ikLl60jLTWFvo468iPcSdngxgm/OWRsnknaRje+D1mCRVklNmtE6jG1YzW00dZ8h+qKH6mvvU3N7Uqqb5Vyq6KMsrIKSksrUbU0Y9RqKC8rpbAgj7If8ikvLqS48Co1lSX0i732mzuQrIZ2zCJ2d2cbFp2C2mtHUFyOpO5iOHVnd1J/xo+6kz5UHd1IRcYGak5u4/bRreQd2UPGV35UFF0Sv5wRu7EVh1ns0KIfA6qwirbbq/NpiHsV26Fp6OJEk7GzuBj2HmfC3DkV7sHxUHeKwl9DGTWBzJCFZPpJZKWH0ms10COAfWYtUqeuFZNwZhZtW+5cYfDrl9m3eS6VweM4lBiCFPsb0u4RpC//RvKtI+xDF1QJU7kudyb3s/FcObobe5dBOFTRZxKRjRoVnR0CqG2nqzGPAz5zCV49lxDPaewKD2JCGjwf8zNOKTAxUEuwpxN5oS9R8PkMzi114tvkQHoE0KpX0tupRtKrFRjULZgEUF+TQ2WEC194v0qmz7Mci9vKlIS7PL+vl6lJ95n0WSE7vKdRHODGhTWulMrHc+lwAN1mPRa9QsRuQ9K1NaNra8LY0Yq2Ogd70kSuBztTGzWF/NglRO/4iHiZJ8lBnsT4exAX5E7eHmdywl0o2fMMWcl+2EwGzOLabGItkkbVyJgMaiUt1Tf4LtiVmzsnUySbxJXIBZzwn0dN+LNURU6gLMaNpBBvDm+bTnG0K2dkLlw4HiOAejEpcW36MaDyDhplA9rWJjqU9dSX56IozUZZfhnV7esoqotoq75GW00h7bWFaOqLMTUVYWy8ibqhBH17M52iB5NWKVwq+R/xGA/Jz0X2dAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 93.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAACxKAAAsSgF3enRNAAAFbklEQVQ4yx2Ue1TUZR7Gf53jZqh5qVbDsmPZdtraij171lUokS66GbXkitrRkIuIXJ0kAkZY1IkUS7eCo2QW5CCoUTYslxkEB5gZhrkw9xs4DJeRS227bbdzfrtn+3362R/PX+/5Pu/zfJ/nfYW5iaD41dQoX06OSrOREN9/FeVUzZsM9V/lX9Ew0es+oqMeoiEn0RE3NwIW3H1tjPjcTIeDTI9dJ2zR4jP3MCWfC7ORoDg3PsJMJChNh/38ezpCdkYa6o/O8M1MhEjAwbh/mEmfnRl5IPxJHvrcX+M+l8/oZyomWpV4Dj3AxYoUQh4HwvSYX5wZC3Aj7JOi1/1Egm4SNzzFkYpyvo7Kt3vtRLxWooFhorZeJqtWcSXnIWoKUjhUuJsjRTvpVayh++AjWExGhKmwR5yO+JgIuaSpUS8TssXEpESqDpUxNx4gYDcStA8w5bMyOdTJZPldrFfUI5yAeW/+iFAJpQXp9JU+wbDNhjDqt4uq6mMUKV6Tdqbls3dXHsUFlZy/0E1dvYZCRQlbXtpGw+k6Zh09jJYsJ06hRjj8E/OVXyPkT3E04zn0FQl4nLLlgNMqJiW/Qty6Z6Q/pe4nTt3BY+0OHr8WJq6qnoT4RO58KIHKciVzzl7cpat5ectLPLyxkN8/lcZjCXs4mxpLj+pFgl45lJDbJuYUFPD8s09LzynfYvF/4JbxHxDmYNH7l3nyd/cTtz6RvymVTNt1RCpWc25rDLr0GLwF89FmLsKQNY++OgVjIR9CUFaYmlnIq5n50vGGVhRzP5Ax+y27v/2JpDPN/PG397P0N0+SW1jGN65OGtPXUPvXuzi1dQXNGcs5vjUWdeoChpqqCQe9CH7HoFhR/XdU79RL753+kLLaD8ip+ZjtRy+xKa2C+MQ/c88Tm8grKmXW8gU2RSzv/mUJmvSltMlo3nUHM8XzMLS8SyTkl0PxWkSTsY/aDxqlvfnFbE7ew8bkA6zdXMHaTQoeTUjh8fgtqA5XEbZ2oy5cT2XyPZzYsYbqlHs5+uJKzmb/AY+hgzG/6+YOzWLANYS5v0fStV9Bf1VLt7YDXaeGrvY22to6foHJMIDTbqNNo6HlwidoPm2irfUin11Uo5XnwnLxw3JfBZ/TLHodgwTdZsk7bEB74Rj95wrQncnjam0a195L5erJFDqOJ/OPYy+gO7WdrpptqGv2c/z1VDSXPmRyxEXIOch1r9xDr+MmoQmfyyoN6ZrQl9+H/8gy7GUxdJWspi5vPW/nJlCTl4gqax3NefdhPHAbtfse5fQrAvWqbPldOwm5ZEKPTOi2m0SPrMzrsEienvNEqu/m9ZQ1fJH1Kw4rMxGKv0PIuYFw8P8I266Rm7QMk/J2mXgJDTtupeFYDiG/TOg0MeqRLTttRtFtNeCxD0l+vZryrQ+SvekB9m1YSmbuHuarYPHBf7KwCubvdZK94XbO71uBemcsdWsXUleZwYjfgc9hYMRlQXBYBkSXpR+3zSwNdzfSeeBOdietkrs2jxOlKSwqH2dpcYDFygkW7FCza+MdfL4nljObl6MpuJVzR9IIyr/Mzf2HnGYEu7lPHDbrcVpNklXbKAUrYqSW7CWStmih1FQcJ5W8miRVZcRLqqx4qSw9QSrPWic17l8sNeQvkz7ff4tUX7ldCrgdksc+IPkdZkmwGq/9zz7Yh9NixND9KWf3raQ1fQGXM2JQH3iEkxkPoyuKoVOxiPY3VnE491mqd93NleKV1GatoP5kyS8K3fabOcgKrYae72TS/9pMetFi7BF72xpFo+asONj+sWjqahYHui6JZm2TjBZxSNci2npaRbf+sujUt4qW3iuiY6hfdFnlHGwGOVyj+DPlRhEVq1zl1wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;2&quot;
         title=&quot;2&quot;
-        src=&quot;/static/27284f7d8f183b0570238d2ea92da2f3/fcda8/2.png&quot;
-        srcset=&quot;/static/27284f7d8f183b0570238d2ea92da2f3/12f09/2.png 148w,
-/static/27284f7d8f183b0570238d2ea92da2f3/e4a3f/2.png 295w,
-/static/27284f7d8f183b0570238d2ea92da2f3/fcda8/2.png 590w,
-/static/27284f7d8f183b0570238d2ea92da2f3/efc66/2.png 885w,
-/static/27284f7d8f183b0570238d2ea92da2f3/c83ae/2.png 1180w,
-/static/27284f7d8f183b0570238d2ea92da2f3/669eb/2.png 1244w&quot;
+        src=&quot;/static/38ae4fc4f46d4915ad282e58fad72977/fcda8/figure_2.png&quot;
+        srcset=&quot;/static/38ae4fc4f46d4915ad282e58fad72977/12f09/figure_2.png 148w,
+/static/38ae4fc4f46d4915ad282e58fad72977/e4a3f/figure_2.png 295w,
+/static/38ae4fc4f46d4915ad282e58fad72977/fcda8/figure_2.png 590w,
+/static/38ae4fc4f46d4915ad282e58fad72977/79e48/figure_2.png 865w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -90,27 +88,25 @@
 &lt;p&gt;很不幸的是，这些嵌入式解释器都比 V8 慢几个数量级（详细对比见第 4 节），影响响应速度和电池寿命。更重要的是，由于内存中的对象表示为动态键值映射（dynamic key-value mappings），因此它们的内存占用量可能是实现同样功能的 C 程序的几倍，这一点严重限制了程序在更低内存的机器上(如 16kB RAM 的 micro:bit 和 32kB RAM 的 CPX)运行的可能性。&lt;/p&gt;
 &lt;h3&gt;1.1 Static TypeScript&lt;/h3&gt;
 &lt;p&gt;作为上述嵌入式解释器的替代，我们开发了 Static TypeScript（STS），它是 TypeScript 的语法子集[3]，由一个用 TypeScript 编写的编译器支持，该编译器可以生成在 16-256kB RAM 的微控制器上高效运行的机器码。STS 及其编译器和运行时的设计主要着力于解决前文提到的三个挑战。确切来说：&lt;/p&gt;
-&lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;STS 削除了 JavaScript 大部分的「糟粕」；受 StrongScript 影响[14],对于静态声明的类，STS 使用名义类型（nominal type），并支持用虚拟函数表的经典技术对类进行高效编译。&lt;/li&gt;
-&lt;li&gt;STS 工具链是离线运行的，一旦加载入浏览器，就不再需要 C/C++编译器。它们用 TypeScript 实现，将 STS 编译为 ARM Thumb 机器码并在浏览器中将其与预编译好的 C++ 运行时链接————浏览器或许在大多数时候是课堂中唯一可用的运行环境了。&lt;/li&gt;
+&lt;li&gt;STS 工具链是离线运行的，一旦加载入浏览器，就不再需要 C/C++ 编译器。它们用 TypeScript 实现，将 STS 编译为 ARM Thumb 机器码并在浏览器中将其与预编译好的 C++ 运行时链接————浏览器或许在大多数时候是课堂中唯一可用的运行环境了。&lt;/li&gt;
 &lt;li&gt;令人惊喜的是，STS 编译器生成的机器码高效而紧凑，使得我们解锁了一系列应用领域，例如图 2 中所示的低配置设备的游戏编程，它们能够运行全都得益于 STS 提供的能力。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/blockquote&gt;
 &lt;p&gt;将 STS 用户程序部署到嵌入式设备不需要安装特别的应用或设备驱动，只需要进入浏览器即可。完成编译的程序以文件下载的形式显示，然后用户将文件传输到显示为 USB 存储器的设备中即可（或者直接通过 WebUSB 协议传输，它是一种即将推出的将网站与物理设备连接的协议）。&lt;/p&gt;
 &lt;p&gt;STS 简单编译的编译方案（将在第 3 节详述）在一系列小型 JavaScript 基准测试中取得了惊人的优秀表现，性能可以和 V8 等先进前沿的 JIT 编译器媲美，而所需的内存则比他们低几个数量级（详情见第 4 节）；同时，也比嵌入式解释器快至少一个数量级。评估的一个特别之处是对处理类、接口和动态映射（dynamic maps）的字段/方法查找的不同策略的比较。&lt;/p&gt;
 &lt;h3&gt;1.2 MakeCode：为教学而生的简单嵌入式开发&lt;/h3&gt;
-&lt;p&gt;STS 是 MakeCode 框架（详情见 &lt;a href=&quot;https://makecode.com&quot;&gt;https://makecode.com&lt;/a&gt; ；该框架及诸多编译器已按 MIT 协议开源，请见 &lt;a href=&quot;https://github.com/microsoft/pxt&quot;&gt;https://github.com/microsoft/pxt&lt;/a&gt; ）支持的核心语言。MakeCode 支持为单片机设备创造自定义的嵌入式编程实验。每个 MakeCode 实验（我们一般称其为编辑器（editors），虽然它们也包含了模拟器、API、教程、文档等）通过 STS 针对特定设备或设备类型进行编程。&lt;/p&gt;
+&lt;p&gt;STS 是 MakeCode 框架支持的核心语言（详情见 &lt;a href=&quot;https://makecode.com&quot;&gt;https://makecode.com&lt;/a&gt; ；该框架及诸多编辑器已按 MIT 协议开源，请见 &lt;a href=&quot;https://github.com/microsoft/pxt&quot;&gt;https://github.com/microsoft/pxt&lt;/a&gt; ）。MakeCode 支持为单片机设备创造自定义的嵌入式编程实验。每个 MakeCode 实验（我们一般称其为编辑器（editors），虽然它们也包含了模拟器、API、教程、文档等）通过 STS 针对特定设备或设备类型进行编程。&lt;/p&gt;
 &lt;p&gt;大多数 MakeCode 编辑器主要以 Web 应用的形式部署，其中包含了用以开发 STS 程序的功能齐全的文本编辑器，它基于 Monaco（VS Code 使用的编辑器组件）；还包含了基于 Google Blockly 框架的图形化编程界面（注释中的 STS 元数据定义了 STS 的 API 到 Blockly 的映射，MakeCode 会在 Blockly 和 STS 之间进行交互）。&lt;/p&gt;
 &lt;p&gt;MakeCode 编辑器和原先 BBC micro:bit 和 Adafruit CPX（详情见 &lt;a href=&quot;https://makecode.microbit.org/&quot;&gt;https://makecode.microbit.org/&lt;/a&gt; 和 &lt;a href=&quot;https://makecode.adafruit.com/&quot;&gt;https://makecode.adafruit.com/&lt;/a&gt; ）的编程实验至今已经覆盖了全球的数百万学生和教师。&lt;/p&gt;
-&lt;p&gt;STS 支持包（package）的概念，即 STS、C++、汇编代码文件的集合，并支持把其他的包当做依赖。第三方开发者已经利用这样的能力对 MakeCode 编辑器进行扩展，使之可以支持各种开发板的外接设备（micro:bit 的相关示例见 &lt;a href=&quot;https://makecode.microbit.org/extensions&quot;&gt;https://makecode.microbit.org/extensions&lt;/a&gt; ）。值得注意的是，大多数包完全用 STS 编写从而避免了不安全 C/C++的陷阱，这主要得益于高效的 STS 编译器以及通过数/模针脚（GPIO、PWM、servos）和一些协议（I2C 和 SPI）访问硬件的底层 STS API。&lt;/p&gt;
+&lt;p&gt;STS 支持包（package）的概念，即 STS、C++、汇编代码文件的集合，并支持把其他的包当做依赖。第三方开发者已经利用这样的能力对 MakeCode 编辑器进行扩展，使之可以支持各种开发板的外接设备（micro:bit 的相关示例见 &lt;a href=&quot;https://makecode.microbit.org/extensions&quot;&gt;https://makecode.microbit.org/extensions&lt;/a&gt; ）。值得注意的是，大多数包完全用 STS 编写从而避免了不安全 C/C++ 的陷阱，这主要得益于高效的 STS 编译器以及通过数/模针脚（GPIO、PWM、servos）和一些协议（I2C 和 SPI）访问硬件实现的底层 STS API。&lt;/p&gt;
 &lt;p&gt;图 3 展示了用来为图 2 中的手持游戏设备进行编程的 MakeCode Arcade 编辑器（事实上，图中编辑器里的 STS 程序就是在三个单片机设备中运行的游戏之一，它是一个简单的平台游戏）。MakeCode Arcade 包含了一个大部分由 STS 编写的游戏引擎，因此对代码运行效率提出了很高的要求，因为要在高帧率下实现令人快活的视觉效果。该游戏引擎包含游戏循环逻辑、事件上下文栈、物理引擎、文字线条绘制等模块以及用于特定游戏的框架（比如，为图中的平台游戏（译者注：platformer games，这是一种游戏类型）），游戏引擎一共由一万行 STS 代码和少数最基础的 C++ 图像模糊函数组成。该游戏用 Arcade 构建，在浏览器（桌面或移动端）运行，或在不同型号但符合配置要求的单片机上运行（160*120 像素 16 色屏幕和 100MHz 左右主频、100kB RAM 左右的微控制器）。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;图 3&lt;/strong&gt; MakeCode Arcade 编辑器。左边的面板是 Arcade 设备的模拟器；中间的面板是编辑器中可用的 API 的目录；右边的面板是 Monaco 编辑器，可用在其中用 STS 代码为平台游戏编程（ &lt;a href=&quot;https://makecode.com/85409-23773-98992-33605&quot;&gt;https://makecode.com/85409-23773-98992-33605&lt;/a&gt; ）。位于顶部的开关用来在模块可视化编程和 Static TypeScript 编程面板之间切换（由于市场因素，被标记为 JavaScript）。&lt;/p&gt;
 &lt;p&gt;本文的主要目的是详述了该广泛应用的系统和解决上述课堂教学难题的方法。&lt;/p&gt;
 &lt;h2&gt;2 Static TypeScript(STS)&lt;/h2&gt;
-&lt;p&gt;TypeScript[3]是 JavaScript 的渐进式[18]超集。这意味着所有 JavaScript 程序都是 TypeScript 程序并且其类型是可选的、按需添加的，这些类型可以让 IDE 提供更好的支持，也能让大型 JavaScript 程序有更好的错误检测（error checking）。对象类型提供了映射（maps）、函数和类的统一形式。对象类型之间的结构子类型（structural subtyping）定义了可替换性（substitutability）和兼容性检查。经过类型擦除（及较小的语法转换）后生成原始的 JavaScript 程序。&lt;/p&gt;
-&lt;p&gt;STS 是 TypeScript 的子集，TypeScript 继承了 JavaScript 的一些高度动态化的语法：&lt;code class=&quot;language-text&quot;&gt;with&lt;/code&gt;语句、&lt;code class=&quot;language-text&quot;&gt;eval&lt;/code&gt;表达式、基于原型的集成、类之外的&lt;code class=&quot;language-text&quot;&gt;this&lt;/code&gt;指针、&lt;code class=&quot;language-text&quot;&gt;arguments&lt;/code&gt;关键字、&lt;code class=&quot;language-text&quot;&gt;apply&lt;/code&gt;方法。STS 保留了诸如动态映射（dynamic maps）的特性，但将它们与名义类抽象分开。这样的限制是可以接受的，因为大多数初学者编写的程序都非常简单，而且嵌入式领域的 JavaScript 或 TypeScript 库非常少，所以使用这些被限制的 JavaScript 特性（如猴子补丁，monkey patching）的机会很少。&lt;/p&gt;
-&lt;p&gt;我们的目标并不是让 STS 支持 TypeScript 的全部功能，而是务实地聆听用户需求，按嵌入式编程所需添加语言特性。&lt;/p&gt;
+&lt;p&gt;TypeScript[3]是 JavaScript 的渐进式[18]超集。这意味着所有 JavaScript 程序都是 TypeScript 程序并且其类型是可选的、按需添加的，这些类型能让 IDE 提供更好的支持，也能让大型 JavaScript 程序有更好的错误检测（error checking）。对象类型提供了映射（maps）、函数和类的统一形式。对象类型之间的结构子类型（structural subtyping）定义了可替换性（substitutability）和兼容性检查。经过类型擦除（及较小的语法转换）后生成原始的 JavaScript 程序。&lt;/p&gt;
+&lt;p&gt;STS 是 TypeScript 的子集，TypeScript 继承了 JavaScript 的一些高度动态化的语法：&lt;code class=&quot;language-text&quot;&gt;with&lt;/code&gt;语句、&lt;code class=&quot;language-text&quot;&gt;eval&lt;/code&gt;表达式、基于原型（prototype）的继承、类之外的&lt;code class=&quot;language-text&quot;&gt;this&lt;/code&gt;指针、&lt;code class=&quot;language-text&quot;&gt;arguments&lt;/code&gt;关键字、&lt;code class=&quot;language-text&quot;&gt;apply&lt;/code&gt;方法。STS 保留了诸如动态映射（dynamic maps）的特性，但将它们与名义类抽象分开。这样的限制是可以接受的，因为大多数初学者编写的程序都非常简单，而且嵌入式领域的 JavaScript 库或 TypeScript 库非常少，所以使用这些被限制的 JavaScript 特性（如猴子补丁，monkey patching）的机会很少。&lt;/p&gt;
+&lt;p&gt;我们的目标并不是让 STS 支持 TypeScript 的全部功能，而是务实地针对用户需求，按嵌入式编程所需添加语言特性。&lt;/p&gt;
 &lt;p&gt;与所有对象类型都是属性包的 TypeScript 相比，STS 在运行时拥有四种不相关的对象类型：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;em&gt;动态映射&lt;/em&gt;类型，它具有命名属性（即字符串索引），能保存任何类型的值&lt;/li&gt;
@@ -118,7 +114,7 @@
 &lt;li&gt;&lt;em&gt;类&lt;/em&gt;，用以描述类的示例，通过访问每个字段/方法进行高效的运行时子类型检查，对它们进行名义上的处理，后文中会详述&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;数组&lt;/em&gt;（集合）类型&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;某种程度上，STS 与 Java 和 C# 的风味更接近，它们都把类型视作「抽象的守护神」（protectors of abstractions），而不像 JavaScript 那样允许更加自由地处理对象。在 3.4 节的讨论中，运行时类型标签（type tags）用于区分上面列出的不同种类的内置对象类型（以及诸如装箱数字（boxed number）和字符串之类的语言基础构件）。&lt;/p&gt;
+&lt;p&gt;某种程度上，STS 与 Java 或 C# 的风味更接近，它们都把类型视作「抽象的守护神」（protectors of abstractions），而不像 JavaScript 那样允许更自由地处理对象。在 3.4 节的讨论中，运行时类型标签（type tags）用于区分上面列出的不同种类的内置对象类型（以及诸如装箱数字（boxed number）和字符串之类的语言基础构件）。&lt;/p&gt;
 &lt;p&gt;与 TypeScript 中一样，类型转换不会生成任何代码且不会失败。相反，STS 在字段/方法访问点保护名义上的类抽象。当&lt;code class=&quot;language-text&quot;&gt;x == null&lt;/code&gt;时，&lt;code class=&quot;language-text&quot;&gt;x.f&lt;/code&gt;在 JavaScript 中会导致运行时错误。如果&lt;code class=&quot;language-text&quot;&gt;T&lt;/code&gt;是具有字段&lt;code class=&quot;language-text&quot;&gt;f&lt;/code&gt;的类，并且&lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt;的动态类型不是&lt;code class=&quot;language-text&quot;&gt;T&lt;/code&gt;的名义子类型，则&lt;code class=&quot;language-text&quot;&gt;(x as T).f&lt;/code&gt;在 STS 中将导致运行时错误。如果&lt;code class=&quot;language-text&quot;&gt;T&lt;/code&gt;是接口、&lt;code class=&quot;language-text&quot;&gt;any&lt;/code&gt;或某种复杂类型（例如，union 或 intersection），则与&lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt;的动态类型无关，而是根据名称查找该字段。&lt;/p&gt;
 &lt;p&gt;其他抽象在运行时中也受到保护，正如在 JavaScript 中那样：例如，对非&lt;em&gt;函数&lt;/em&gt;类型的对象进行函数调用。现在，将属性动态添加到除&lt;code class=&quot;language-text&quot;&gt;map&lt;/code&gt;类型之外的任何其他类型是错误的。我们将来可能会取消对动态 JavaScript 语义的限制，这取决于用户的反馈。迄今为止，在我们的用户社区（教育工作者和开发人员）中还没有收到任何关于这些限制的负面反馈。&lt;/p&gt;
 &lt;p&gt;STS 基本类型根据 JavaScript 语义进行处理。特别要强调的是，所有的数字类型在理论上都是 IEEE 64 位浮点类型，但也有可能实际使用 31 位带符号标记的整数类型。运算符的实现（例如加法或比较）基于动态值的分支，以遵循 JavaScript 语义，并在汇编中手动实现了整数类型的快速实现。&lt;/p&gt;
@@ -164,9 +160,9 @@ C++ 的类型会映射到 STS 的类型，由于在 STS 中所有数字类型理
 &lt;h2&gt;3 编译器和运行时&lt;/h2&gt;
 &lt;p&gt;STS 的编译器和工具链（链接器等）完全使用 TypeScript 编写。现在尚不支持单独编译 STS 文件，STS 是一个完整的程序编译器（支持缓存预编译的包，其中包含了 C++ 运行时）。STS 的设备运行时主要是由 C++ 编写的，包含定制的垃圾回收器。正如前文提到的，STS 并不计划支持 JavaScript 的全部功能。&lt;/p&gt;
 &lt;h3&gt;3.1 编译工具链&lt;/h3&gt;
-&lt;p&gt;TypeScript 源程序由常规 TypeScript 编译器处理，执行包块类型检查在内的语法和语义分析；这个过程产出有类型注释的抽象语法树（AST），然后检查是否有 STS 范围之外的构造（类似&lt;code class=&quot;language-text&quot;&gt;eval&lt;/code&gt;和&lt;code class=&quot;language-text&quot;&gt;arguments&lt;/code&gt;等）。抽象语法树随后会转化为具有语言构造的自定义 IR 用以调用运行时函数。这种 IR 之后回北转换为下列的三种形式之一：&lt;/p&gt;
+&lt;p&gt;TypeScript 源程序由常规 TypeScript 编译器处理，执行包括类型检查在内的语法和语义分析；这个过程产出带有类型注释的抽象语法树（AST），然后检查是否有 STS 范围之外的语言构件（类似&lt;code class=&quot;language-text&quot;&gt;eval&lt;/code&gt;和&lt;code class=&quot;language-text&quot;&gt;arguments&lt;/code&gt;等）。抽象语法树随后会转化为具有语言构件的自定义 IR 用以调用运行时函数。这种 IR 之后会被转换为下列的三种形式之一：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;继续传递 JavaScript 运行到浏览器中（在单独的 iframe“模拟器”里）。&lt;/li&gt;
+&lt;li&gt;继续传递 JavaScript 运行到浏览器中（在单独的 iframe “模拟器”里）。&lt;/li&gt;
 &lt;li&gt;与预编译的 C++ 运行时链接的 ARM Thumb 机器码，用以在裸机（A ‘bare-metal server’ is a computer server that is a ‘single-tenant physical server’. The term is used nowadays to distinguish it from modern forms of virtualisation and cloud hosting.）硬件和操作系统内部运行。&lt;/li&gt;
 &lt;li&gt;自定义虚拟机的字节码，用于无法加载或生成动态语言的平台（例如 XBox 和 iOS）。&lt;/li&gt;
 &lt;/ol&gt;
