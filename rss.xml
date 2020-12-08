@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 07 Dec 2020 21:30:25 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 08 Dec 2020 12:56:07 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
 &lt;p&gt;作者：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Thomas Ball&lt;/strong&gt;，微软研究院，Redmond，tball@microsoft.com&lt;/li&gt;
@@ -179,15 +179,15 @@ C++ 的类型会映射到 STS 的类型，由于在 STS 中所有数字类型理
 &lt;p&gt;所有其他值均表示为指向常量内存分配的对象或堆上分配的对象的指针。所有指针都是字对齐的（32 位），因此最低两位也是确定的。对于由 STS 运行时创建的对象，第一个字由指向虚函数表表的指针占用。&lt;/p&gt;
 &lt;h3&gt;3.4 虚函数表布局（Virtual table layout）&lt;/h3&gt;
 &lt;p&gt;与 Java 或 C# 相似的是，STS 类的编译具有单继承和静态内存布局（static memory layout）的特点。对象的第一个字（word）指向一个虚函数表，随后的字被分配给字段（如果有基类的字段，会放在前面）。虚函数表包含对象的空间、静态分配的类的序号（包括 STS 支持的内置类型和用户定义的类型的标记）、一个指向接口表和接口哈希表的指针（见下文），该指针之后是指向方法的指针。&lt;/p&gt;
-&lt;p&gt;最开始的四个方法插槽（slots）是为与对象标记和释放相关的运行时和 GC 相关的功能预先分配的，这些函数遵循 C++ 调用的约定。而其余的函数则遵循 STS 的调用约定。第一个 STS 方法指针是&lt;code class=&quot;language-text&quot;&gt;ToString()&lt;/code&gt;，前提是它已经被定义了。（注 7：&lt;code class=&quot;language-text&quot;&gt;ToString()&lt;/code&gt;和&lt;code class=&quot;language-text&quot;&gt;valueOf()&lt;/code&gt;在 JavaScript 运行时语义转换中扮演了特殊的角色，我们暂时还不支持&lt;code class=&quot;language-text&quot;&gt;valueOf&lt;/code&gt;）而之后是基类定义的方法，再之后是现有的类的方法。如果一个方法从未被动态调度（dynamic dispatch）所调用（例如，从未被重写或从未调用），则该方法不会被加入虚函数表（在 MakeCode Arcade 有引擎中，只有 13%的方法使用动态调度）。&lt;/p&gt;
+&lt;p&gt;最开始的四个方法插槽（slots）是为与对象标记和释放相关的运行时和 GC 相关的功能预先分配的，这些函数遵循 C++ 调用的约定。而其余的函数则遵循 STS 的调用约定。第一个 STS 方法指针是&lt;code class=&quot;language-text&quot;&gt;toString()&lt;/code&gt;，前提是它已经被定义了。（注 7：&lt;code class=&quot;language-text&quot;&gt;toString()&lt;/code&gt;和&lt;code class=&quot;language-text&quot;&gt;valueOf()&lt;/code&gt;在 JavaScript 运行时语义转换中扮演了特殊的角色，我们暂时还不支持&lt;code class=&quot;language-text&quot;&gt;valueOf&lt;/code&gt;）而之后是基类定义的方法，再之后是现有的类的方法。如果一个方法从未被动态调度（dynamic dispatch）所调用（例如，从未被重写或从未调用），则该方法不会被加入虚函数表（在 MakeCode Arcade 有引擎中，只有 13%的方法使用动态调度）。&lt;/p&gt;
 &lt;p&gt;接口表按之前定义的顺序包含类的所有字段和方法的描述符。每个描述符都包含成员索引（分配给成员的名称）和一个函数指针。字段描述符还包含字段的偏移量。该描述符用于成员的查找和对象属性的迭代（如使用&lt;code class=&quot;language-text&quot;&gt;Object.keys()&lt;/code&gt;）。描述符用一个简单的哈希表索引，它通过成员索引乘以从虚拟表中获取的接口哈希乘数（在编译时按类计算）来计算键名。&lt;/p&gt;
 &lt;p&gt;STS 使用三种成员查找方法：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;当接收方为静态的类&lt;code class=&quot;language-text&quot;&gt;C&lt;/code&gt;时，编译器将针对 C 进行运行时子类型检查（有可能不成功，因为动态类型可能不是&lt;code class=&quot;language-text&quot;&gt;C&lt;/code&gt;的子类型），然后在虚函数表中用直接偏移量查找方法，或者在对象中使用直接偏移量进行字段访问。&lt;/li&gt;
-&lt;li&gt;如果接收方动态时属于类（静态时可以是接口、&lt;code class=&quot;language-text&quot;&gt;any&lt;/code&gt;或更复杂的结构类型），则使用成员索引和接口哈希键命在接口表中查找成员描述符。&lt;/li&gt;
+&lt;li&gt;如果接收方的动态类型是一个类（静态类型可以是接口、&lt;code class=&quot;language-text&quot;&gt;any&lt;/code&gt;或更复杂的结构类型），则使用成员索引和接口哈希键名在接口表中查找成员描述符。&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;对于在 C ++运行时中实现的对象，使用特定于类型的函数，尤其是在编译对象文字或&lt;code class=&quot;language-text&quot;&gt;new Object()&lt;/code&gt;时使用的动态映射。&lt;/p&gt;
-&lt;p&gt;4.3 节会对比着三种方法的性能。&lt;/p&gt;
+&lt;p&gt;对于在 C ++运行时中实现的对象，使用特定于类型的函数，尤其是在编译对象字面量或&lt;code class=&quot;language-text&quot;&gt;new Object()&lt;/code&gt;时使用的动态映射。&lt;/p&gt;
+&lt;p&gt;4.3 节会对比这三种方法的性能。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;3.5 算术运算符&lt;/h3&gt;
