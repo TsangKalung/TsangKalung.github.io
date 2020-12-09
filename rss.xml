@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 08 Dec 2020 12:56:07 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 09 Dec 2020 09:29:05 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
 &lt;p&gt;作者：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Thomas Ball&lt;/strong&gt;，微软研究院，Redmond，tball@microsoft.com&lt;/li&gt;
@@ -158,18 +158,18 @@ C++ 的类型会映射到 STS 的类型，由于在 STS 中所有数字类型理
 &lt;p&gt;MakeCode 附带了许多编辑器构建器可以附带的包（通用包），它们用以支持各种硬件功能（引脚、按钮、蜂鸣器、屏幕等），以及诸如处理 Sprite 的游戏库之类的高级概念。其中一些包是变体，共享界面但具有不同的实现方式（例如，用于不同屏幕的驱动程序）。&lt;/p&gt;
 &lt;p&gt;外部（GitHub）包通常为其他硬件拓展设备提供支持。用户通常不会一次使用太多外部包，因此我们感到由于没有让命名空间强制不同名而导致名称冲突的风险很低，并且它允许将新的 API 自然地融入现有的名称空间。&lt;/p&gt;
 &lt;h2&gt;3 编译器和运行时&lt;/h2&gt;
-&lt;p&gt;STS 的编译器和工具链（链接器等）完全使用 TypeScript 编写。现在尚不支持单独编译 STS 文件，STS 是一个完整的程序编译器（支持缓存预编译的包，其中包含了 C++ 运行时）。STS 的设备运行时主要是由 C++ 编写的，包含定制的垃圾回收器。正如前文提到的，STS 并不计划支持 JavaScript 的全部功能。&lt;/p&gt;
+&lt;p&gt;STS 的编译器和工具链（链接器等）完全使用 TypeScript 编写。现在尚不支持单独编译 STS 代码文件，STS 是一个完整的程序编译器（支持缓存预编译的包，其中包含了 C++ 运行时）。STS 的设备运行时主要是由 C++ 编写的，包含定制的垃圾回收器。正如前文提到的，STS 并不计划支持 JavaScript 的全部功能。&lt;/p&gt;
 &lt;h3&gt;3.1 编译工具链&lt;/h3&gt;
 &lt;p&gt;TypeScript 源程序由常规 TypeScript 编译器处理，执行包括类型检查在内的语法和语义分析；这个过程产出带有类型注释的抽象语法树（AST），然后检查是否有 STS 范围之外的语言构件（类似&lt;code class=&quot;language-text&quot;&gt;eval&lt;/code&gt;和&lt;code class=&quot;language-text&quot;&gt;arguments&lt;/code&gt;等）。抽象语法树随后会转化为具有语言构件的自定义 IR 用以调用运行时函数。这种 IR 之后会被转换为下列的三种形式之一：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;继续传递 JavaScript 运行到浏览器中（在单独的 iframe “模拟器”里）。&lt;/li&gt;
-&lt;li&gt;与预编译的 C++ 运行时链接的 ARM Thumb 机器码，用以在裸机（A ‘bare-metal server’ is a computer server that is a ‘single-tenant physical server’. The term is used nowadays to distinguish it from modern forms of virtualisation and cloud hosting.）硬件和操作系统内部运行。&lt;/li&gt;
+&lt;li&gt;与预编译的 C++ 运行时链接的 ARM Thumb 机器码，用以在裸机（译者注：指没有配置操作系统和其他软件的计算机）和操作系统内部运行。&lt;/li&gt;
 &lt;li&gt;自定义虚拟机的字节码，用于无法加载或生成动态语言的平台（例如 XBox 和 iOS）。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;ARM Thumb 机器码和自定义的字节码全都被生成为汇编代码，再由定制的汇编器转换为机器码。在本节中我们主要讨论原生 32-bit ARM Thumb 的转化过程（我们会在 4.2 节对比虚拟机的性能）。&lt;/p&gt;
 &lt;p&gt;本段提到的常规的 TypeScript 编译器、STS 代码生成器、汇编器（assembler）、链接器（linker）均由 TypeScript 实现并且全部运行在浏览器或命令行中。&lt;/p&gt;
 &lt;h3&gt;3.2 链接&lt;/h3&gt;
-&lt;p&gt;生成的机器码将与一个预编译的 C++ 运行时链接。C++ 的编译在云上运行，编译生成的运行时缓存在 CDN 和浏览器中（可以选择使用所有 C++源码的强哈希算法进行缓存）。通常来说，用户编写他们的程序时，C++ 运行时不会更改，从而让离线操作成为可能[5]。&lt;/p&gt;
+&lt;p&gt;生成的机器码将与一个预编译的 C++ 运行时链接。C++ 的编译在云上运行，编译生成的运行时缓存在 CDN 和浏览器中（可以选择使用所有 C++源码的强哈希算法进行缓存）。通常来说，用户编写他们的程序时，C++ 运行时不会更改，从而让离线操作成为可能(尽管我们可以使用 Emscripten 或类似的技术在本地对 C++ 进行编译，但编译工具链、头文件和相关的库可能需要数十兆的下载请求，导致浏览器的离线缓存空间紧张)。&lt;/p&gt;
 &lt;p&gt;生成的机器码通常会附加在预编译 C++ 运行时代码的后面，根据目标设备要求的文件格式（特别是 ELF）对生成文件进行一些修补。为了生成代码，汇编器需要运行时函数的地址，这些地址从运行时的二进制文件提取。&lt;/p&gt;
 &lt;p&gt;包可能还要包含从运行时中继承出来的 C++ 代码。包含 C++ 的包组合都必须分别进行编译和缓存，这些也都是在云上运行的。到目前为止，这些可能是天量数字的包组合方式还没有出现大问题，因为学生一般不会一次使用很多外部的包，而且我们的经验是，为 MakeCode 编写的包很少使用原生 C++。&lt;/p&gt;
 &lt;h3&gt;3.3 值的表示&lt;/h3&gt;
@@ -205,14 +205,14 @@ C++ 的类型会映射到 STS 的类型，由于在 STS 中所有数字类型理
     mov r4, lr ; save return address
     bl numops::adds ; call into runtime
     bx r4 ; return&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;其它由特别实现的算术运算符有&lt;code class=&quot;language-text&quot;&gt;-&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;|&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;&amp;amp;&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;^&lt;/code&gt;和整数转换（调用 C++ 运行时函数时使用）。这些特别的汇编程序比始终调用 C++ 函数要快约两倍。我们在 4.3 节对乘法的性能做了比较。
+&lt;p&gt;其它有特殊实现的算术运算符有&lt;code class=&quot;language-text&quot;&gt;-&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;|&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;&amp;amp;&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;^&lt;/code&gt;和整数转换（调用 C++ 运行时函数时使用）。这些特别的汇编程序比始终调用 C++ 函数要快约两倍。我们在 4.3 节对乘法的性能做了比较。
 除此之外的运算符则用 C++ 实现为使用整数、限制范围的数值和其它类型的抽象值的函数。&lt;/p&gt;
 &lt;h3&gt;3.6 内置对象（built-in）的表示&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;数组（Arrays）&lt;/strong&gt; 和 C++标准向量（vector）类似，但有相对保守的增长策略并且不支持稀疏数组（sparse array）。包括范围检查在内的简单数组访问操作用用汇编实现。设计索引转换和数组增长的情况用 C++ 运行时处理。缓冲区只是具有汇编字节访问器和用 C ++ 实现的许多实用程序函数的内存连续块。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;字符串（Strings）&lt;/strong&gt; 会有四种不同的表示，它们的开头都毁有一个虚函数表（v-table）指针。所有的字符串当前被限制为最大占用 65,535 字节的空间。ASCII 字符串（所有在 0-127 范围内的字符）用长度前缀加 NUL 中止的字符数据表示（其内部仍然可以有 NUL，只是为了方便 C++ 函数使用所以添加最后的 NUL）。较短的 Unicode 字符串使用 UTF-8 的可变长度编码，它们拥有不同的虚函数表。索引方法可以即时解码 UTF-8。&lt;/p&gt;
-&lt;p&gt;更长的 Unicode 字符串表示为字符串的长度（以字符为单位）、字符串的大小（以字节为单位）以及指向数据的指针，该指针包含 UTF-8 中的实际字符数据（再次以 NUL 终止）和跳过列表 包含每个可被 16 整除的字符偏移量的字节偏移量。索引方法从最接近的前一个跳过列表偏移量开始，然后从那里开始对 UTF-8 数据进行解码。此编码用于代替标准 UTF-16，以节省空间。它还可以确保所有字符串（以下所述的临时字符串除外）都包含有效的 UTF-8 NUL 终止的字符串，从而使 C++ 运行时函数无需附加转换即可轻松处理它们。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数组（Arrays）&lt;/strong&gt; 和 C++标准向量（vector）类似，但有相对保守的增长策略并且不支持稀疏数组（sparse array）。包括范围检查在内的简单数组访问操作用用汇编实现。涉及索引转换和数组增长的情况用 C++ 运行时处理。缓冲区只是连续的内存块，可以通过汇编字节访问器和几个用C++写的工具函数来访问。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字符串（Strings）&lt;/strong&gt; 会有四种不同的表示，它们的开头都会有一个虚函数表（v-table）指针。所有的字符串当前被限制为最大占用 65,535 字节的空间。ASCII 字符串（所有在 0-127 范围内的字符）用长度前缀加 NUL 中止的字符数据表示（其内部仍然可以有 NUL，只是为了方便 C++ 函数使用所以添加最后的 NUL）。较短的 Unicode 字符串使用 UTF-8 的可变长度编码，它们拥有不同的虚函数表。索引方法可以即时解码 UTF-8。&lt;/p&gt;
+&lt;p&gt;更长的 Unicode 字符串表示为字符串的长度（以字符为单位）、字符串的大小（以字节为单位）以及指向数据的指针，该指针包含 UTF-8 中的实际字符数据（再次以 NUL 终止）和跳过列表,包含每个可被 16 整除的字符偏移量的字节偏移量。索引方法从最接近的前一个跳过列表偏移量开始，然后从那里开始对 UTF-8 数据进行解码。此编码用于代替标准 UTF-16，以节省空间。它还可以确保所有字符串（以下所述的临时字符串除外）都包含有效的 UTF-8 NUL 终止的字符串，从而使 C++ 运行时函数无需附加转换即可轻松处理它们。&lt;/p&gt;
 &lt;p&gt;最后，当两个长字符串连接在一起时分配 cons-string。它们由两个指向字符串的指针组成（它们本身可以是 cons-string）。 当 cons-string 被索引时，它就地转换为一个跳过列表字符串（它们都是 12 个字节）。这使得字符串连接（在 JavaScript 中非常常见）成为了恒定时间操作。这是一种已经广泛使用的优化技术[4]，所有主要的 JavaScript 引擎都支持这项技术。&lt;/p&gt;
-&lt;p&gt;前三种字符串是由编译器在内存中进行的，而所有四种字符串都可以动态构造。&lt;/p&gt;
+&lt;p&gt;前三种字符串是由编译器在闪存中进行的，而所有四种字符串都可以动态构造。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;闭包（Closures）&lt;/strong&gt; 用指向函数静态代码的指针表示，这些代码包含从外部作用域能获取的只读本地变量（不包含最外层的全局变量）。如果一个变量被获取后可以写入，它将转换为只想保存其值的堆对象的指针（在任何作用域中）。在闭包执行期间，会静态分配一个特定的寄存器来保存指向闭包对象的指针。&lt;/p&gt;
 &lt;p&gt;函数会像值一样被使用，但不会获取任何东西，在闪存中以上述的格式静态分配。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;动态映射（Dynamic maps）&lt;/strong&gt; 是简单的两个向量，其中一个为键名，另一个为值。查找是线性的。&lt;/p&gt;
@@ -297,10 +297,10 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;致谢&lt;/strong&gt; 我们要感谢 MakeCode 团队的成员和前成员：Abhijith Chatra、Sam El-Husseini、Caitlin Hennessy、Steve Hodges、Guillaume
 Jenkins、Shannon Kao、Richard Knoll、Jacqueline Russell、Daryl Zuniga。我们还要感谢 Lancaster 大学的 James Devine 和 Joe Finney，他们开发的 CODAL 是 STS 的 C++运行时的一部分。最后，我们还要感谢匿名审稿人的评论，并感谢 Edd Barrett 帮忙润色本文的最终版本。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;[1]: Jonny Austin, Howard Baker, Thomas Ball, James Devine, Joe Finney,Peli de Halleux, Steve Hodges, Michal Moskal, and Gareth Stockdale. 2019. The BBC micro:bit – from the UK to the World. Commun. ACM(to appear) (2019).&lt;/p&gt;
-&lt;p&gt;[2]: BBC. 2017. BBC micro:bit celebrates huge impact in first year, with 90% of students saying it helped show that anyone can code. &lt;a href=&quot;https://www.bbc.co.uk/mediacentre/latestnews/2017/microbit-first-year&quot;&gt;https://www.bbc.co.uk/mediacentre/latestnews/2017/microbit-first-year&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;[3]: Gavin M. Bierman, Martín Abadi, and Mads Torgersen. 2014. Understanding TypeScript. In ECOOP 2014 - Object-Oriented Programming - 28th European Conference, Uppsala, Sweden, July 28 - August 1, 2014.Proceedings. 257–281. &lt;a href=&quot;https://doi.org/10.1007/978-3-662-44202-9_11&quot;&gt;https://doi.org/10.1007/978-3-662-44202-9_11&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;[5]: 尽管我们可以使用 Emscripten 或类似的技术在本地对 C++ 进行编译，但编译工具链、头文件和相关的库可能需要数十兆的下载请求，导致浏览器的离线缓存空间紧张。&lt;/p&gt;
+&lt;p&gt;[1] Jonny Austin, Howard Baker, Thomas Ball, James Devine, Joe Finney,Peli de Halleux, Steve Hodges, Michal Moskal, and Gareth Stockdale. 2019. The BBC micro:bit – from the UK to the World. Commun. ACM(to appear) (2019).&lt;/p&gt;
+&lt;p&gt;[2] BBC. 2017. BBC micro:bit celebrates huge impact in first year, with 90% of students saying it helped show that anyone can code. &lt;a href=&quot;https://www.bbc.co.uk/mediacentre/latestnews/2017/microbit-first-year&quot;&gt;https://www.bbc.co.uk/mediacentre/latestnews/2017/microbit-first-year&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[3] Gavin M. Bierman, Martín Abadi, and Mads Torgersen. 2014. Understanding TypeScript. In ECOOP 2014 - Object-Oriented Programming - 28th European Conference, Uppsala, Sweden, July 28 - August 1, 2014.Proceedings. 257–281. &lt;a href=&quot;https://doi.org/10.1007/978-3-662-44202-9_11&quot;&gt;https://doi.org/10.1007/978-3-662-44202-9_11&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] Satish Chandra, Colin S. Gordon, Jean-Baptiste Jeannin, Cole Schlesinger, Manu Sridharan, Frank Tip, and Young-Il Choi. 2016.Type inference for static compilation of JavaScript. In Proceedings of the 2016 ACM SIGPLAN International Conference on Object-Oriented Programming, Systems, Languages, and Applications, OOPSLA 2016, part of SPLASH 2016, Amsterdam, The Netherlands, October 30 - November 4,2016. 410–429. &lt;a href=&quot;https://doi.org/10.1145/2983990.2984017&quot;&gt;https://doi.org/10.1145/2983990.2984017&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;[6] Wontae Choi, Satish Chandra, George Necula, and Koushik Sen. 2015.SJS: A type system for JavaScript with fixed object layout. In International Static Analysis Symposium. Springer, 181–198.&lt;/p&gt;
 &lt;p&gt;[7] James Devine, Joe Finney, Peli de Halleux, Michal Moskal, Thomas Ball,and Steve Hodges. 2018. MakeCode and CODAL: intuitive and efficient
 embedded systems programming for education. In Proceedings of the 19th ACM SIGPLAN/SIGBED International Conference on Languages,Compilers, and Tools for Embedded Systems, LCTES 2018, Philadelphia,PA, USA, June 19-20, 2018. 19–30.&lt;/p&gt;
