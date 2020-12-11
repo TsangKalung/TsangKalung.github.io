@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 11 Dec 2020 06:29:48 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 11 Dec 2020 06:42:49 GMT</lastBuildDate><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
 &lt;p&gt;作者：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Thomas Ball&lt;/strong&gt;，微软研究院，Redmond，tball@microsoft.com&lt;/li&gt;
@@ -28,8 +28,8 @@
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;图1&quot;
-        title=&quot;图1&quot;
+        alt=&quot;图 1：两个 Cortex-M0 的单片机教育设备：(a) BBC micro:bit 拥有包含 16kB RAM 和 256kB 闪存的 Nordic nRF51822 微控制单元；(b) Adafruit’s Circuit Playground Express ( https://adafruit.com/products/3333 ) 拥有包含 32kb RAM 和 256kB 闪存的 Atmel SAMD21 微控制单元。&quot;
+        title=&quot;图 1：两个 Cortex-M0 的单片机教育设备：(a) BBC micro:bit 拥有包含 16kB RAM 和 256kB 闪存的 Nordic nRF51822 微控制单元；(b) Adafruit’s Circuit Playground Express ( https://adafruit.com/products/3333 ) 拥有包含 32kb RAM 和 256kB 闪存的 Atmel SAMD21 微控制单元。&quot;
         src=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/fcda8/figure_1.png&quot;
         srcset=&quot;/static/a99b064967e9368263d4f1bb52ca18e4/12f09/figure_1.png 148w,
 /static/a99b064967e9368263d4f1bb52ca18e4/e4a3f/figure_1.png 295w,
@@ -71,8 +71,8 @@
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;2&quot;
-        title=&quot;2&quot;
+        alt=&quot;图 2：三款有 160x120 分辨率彩色屏幕的基于单片机的游戏机，这些开发板使用 ARM 的 Cortex-M4F 核心：ATSAMD51G19（192kB RAM，以 120Mhz 主频运行）和 STM32F401RE（96kB RAM，以 84Mhz 主频运行）。&quot;
+        title=&quot;图 2：三款有 160x120 分辨率彩色屏幕的基于单片机的游戏机，这些开发板使用 ARM 的 Cortex-M4F 核心：ATSAMD51G19（192kB RAM，以 120Mhz 主频运行）和 STM32F401RE（96kB RAM，以 84Mhz 主频运行）。&quot;
         src=&quot;/static/38ae4fc4f46d4915ad282e58fad72977/fcda8/figure_2.png&quot;
         srcset=&quot;/static/38ae4fc4f46d4915ad282e58fad72977/12f09/figure_2.png 148w,
 /static/38ae4fc4f46d4915ad282e58fad72977/e4a3f/figure_2.png 295w,
@@ -114,8 +114,8 @@
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;3&quot;
-        title=&quot;3&quot;
+        alt=&quot;图 3：MakeCode Arcade 编辑器。左边的面板是 Arcade 设备的模拟器；中间的面板是编辑器中可用的 API 的目录；右边的面板是 Monaco 编辑器，可用在其中用 STS 代码为平台游戏编程（ https://makecode.com/85409-23773-98992-33605 ）。位于顶部的开关用来在模块可视化编程和 Static TypeScript 编程面板之间切换（由于市场因素，被标记为 JavaScript）。&quot;
+        title=&quot;图 3：MakeCode Arcade 编辑器。左边的面板是 Arcade 设备的模拟器；中间的面板是编辑器中可用的 API 的目录；右边的面板是 Monaco 编辑器，可用在其中用 STS 代码为平台游戏编程（ https://makecode.com/85409-23773-98992-33605 ）。位于顶部的开关用来在模块可视化编程和 Static TypeScript 编程面板之间切换（由于市场因素，被标记为 JavaScript）。&quot;
         src=&quot;/static/a913b34f79924eebb0994378820a56ef/fcda8/figure_3.png&quot;
         srcset=&quot;/static/a913b34f79924eebb0994378820a56ef/12f09/figure_3.png 148w,
 /static/a913b34f79924eebb0994378820a56ef/e4a3f/figure_3.png 295w,
@@ -129,11 +129,11 @@
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图 3&lt;/strong&gt; MakeCode Arcade 编辑器。左边的面板是 Arcade 设备的模拟器；中间的面板是编辑器中可用的 API 的目录；右边的面板是 Monaco 编辑器，可用在其中用 STS 代码为平台游戏编程（ &lt;a href=&quot;https://makecode.com/85409-23773-98992-33605&quot;&gt;https://makecode.com/85409-23773-98992-33605&lt;/a&gt; ）。位于顶部的开关用来在模块可视化编程和 Static TypeScript 编程面板之间切换（由于市场因素，被标记为 JavaScript）。&lt;/p&gt;
 &lt;p&gt;大多数 MakeCode 编辑器主要以 Web 应用的形式部署，其中包含了用以开发 STS 程序的功能齐全的文本编辑器，它基于 Monaco（VS Code 使用的编辑器组件）；还包含了基于 Google Blockly 框架的图形化编程界面（注释中的 STS 元数据定义了 STS 的 API 到 Blockly 的映射，MakeCode 会在 Blockly 和 STS 之间进行交互）。&lt;/p&gt;
 &lt;p&gt;MakeCode 编辑器和原先 BBC micro:bit 和 Adafruit CPX（详情见 &lt;a href=&quot;https://makecode.microbit.org/&quot;&gt;https://makecode.microbit.org/&lt;/a&gt; 和 &lt;a href=&quot;https://makecode.adafruit.com/&quot;&gt;https://makecode.adafruit.com/&lt;/a&gt; ）的编程实验至今已经覆盖了全球的数百万学生和教师。&lt;/p&gt;
 &lt;p&gt;STS 支持包（package）的概念，即 STS、C++、汇编代码文件的集合，并支持把其他的包当做依赖。第三方开发者已经利用这样的能力对 MakeCode 编辑器进行扩展，使之可以支持各种开发板的外接设备（micro:bit 的相关示例见 &lt;a href=&quot;https://makecode.microbit.org/extensions&quot;&gt;https://makecode.microbit.org/extensions&lt;/a&gt; ）。值得注意的是，大多数包完全用 STS 编写从而避免了不安全 C/C++ 的陷阱，这主要得益于高效的 STS 编译器以及通过数/模针脚（GPIO、PWM、servos）和一些协议（I2C 和 SPI）访问硬件实现的底层 STS API。&lt;/p&gt;
 &lt;p&gt;图 3 展示了用来为图 2 中的手持游戏设备进行编程的 MakeCode Arcade 编辑器（事实上，图中编辑器里的 STS 程序就是在三个单片机设备中运行的游戏之一，它是一个简单的平台游戏）。MakeCode Arcade 包含了一个大部分由 STS 编写的游戏引擎，因此对代码运行效率提出了很高的要求，因为要在高帧率下实现令人快活的视觉效果。该游戏引擎包含游戏循环逻辑、事件上下文栈、物理引擎、文字线条绘制等模块以及用于特定游戏的框架（比如，为图中的平台游戏（译者注：platformer games，这是一种游戏类型）），游戏引擎一共由一万行 STS 代码和少数最基础的 C++ 图像模糊函数组成。该游戏用 Arcade 构建，在浏览器（桌面或移动端）运行，或在不同型号但符合配置要求的单片机上运行（160*120 像素 16 色屏幕和 100MHz 左右主频、100kB RAM 左右的微控制器）。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;图 3&lt;/strong&gt; MakeCode Arcade 编辑器。左边的面板是 Arcade 设备的模拟器；中间的面板是编辑器中可用的 API 的目录；右边的面板是 Monaco 编辑器，可用在其中用 STS 代码为平台游戏编程（ &lt;a href=&quot;https://makecode.com/85409-23773-98992-33605&quot;&gt;https://makecode.com/85409-23773-98992-33605&lt;/a&gt; ）。位于顶部的开关用来在模块可视化编程和 Static TypeScript 编程面板之间切换（由于市场因素，被标记为 JavaScript）。&lt;/p&gt;
 &lt;p&gt;本文的主要目的是详述了该广泛应用的系统和解决上述课堂教学难题的方法。&lt;/p&gt;
 &lt;h2&gt;2 Static TypeScript(STS)&lt;/h2&gt;
 &lt;p&gt;TypeScript[3]是 JavaScript 的渐进式[18]超集。这意味着所有 JavaScript 程序都是 TypeScript 程序并且其类型是可选的、按需添加的，这些类型能让 IDE 提供更好的支持，也能让大型 JavaScript 程序有更好的错误检测（error checking）。对象类型提供了映射（maps）、函数和类的统一形式。对象类型之间的结构子类型（structural subtyping）定义了可替换性（substitutability）和兼容性检查。经过类型擦除（及较小的语法转换）后生成原始的 JavaScript 程序。&lt;/p&gt;
@@ -304,8 +304,8 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;4&quot;
-        title=&quot;4&quot;
+        alt=&quot;图 4：BCM 和 STM32 MCU 上的基准测试运行时间结果；VM 指 STS 虚拟机，OOM 指内存不足。&quot;
+        title=&quot;图 4：BCM 和 STM32 MCU 上的基准测试运行时间结果；VM 指 STS 虚拟机，OOM 指内存不足。&quot;
         src=&quot;/static/2e065e00598fd0c51107ab1c6873341c/fcda8/figure_4.png&quot;
         srcset=&quot;/static/2e065e00598fd0c51107ab1c6873341c/12f09/figure_4.png 148w,
 /static/2e065e00598fd0c51107ab1c6873341c/e4a3f/figure_4.png 295w,
@@ -319,6 +319,7 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图 4&lt;/strong&gt;：BCM 和 STM32 MCU 上的基准测试运行时间结果；VM 指 STS 虚拟机，OOM 指内存不足。&lt;/p&gt;
 &lt;p&gt;我们使用以下的一系列基准测试。我们尝试使用在 TypeScript/JavaScript 和 Python 中等效的代码，然后对比运行时间而不是语言。（更具体地说，Python fann 使用的算法不同于 C 或 JavaScript 版本，我们对其进行了修改，使它们使用相同的算法且直接进行数组访问；Python 二进制文件更改为使用类而不是元组。之所以进行这些更改，是因为我们想测试数组访问和类实现的性能。我们没有改变 richards 或 nbody 的实现。）由于 C 程序内存不安全且使用静态的整数表示形式，所以它们不一定具有可比性。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Richards：&lt;/strong&gt;Martin Richard’s 基准测试模拟操作系统的调度器队列。我们从 JetStream 基准套件[11]中获取 JavaScript 来源，并将原型初始化替换为等效的类代码，在需要的时候添加类型信息，从而将它们转换为 TypeScript 代码。该基准测试使用许多类以及用于不同调度程序任务的派生方法，用以测试对象属性访问性能。我们还使用了该基准测试的 C 和 Python 版本，它们使用单一结构以及 switch 语句和函数指针执行任务。 我们开发了等效的 TypeScript 代码（标记为 &lt;em&gt;richards2&lt;/em&gt;），但是基于类的版本（&lt;em&gt;richards&lt;/em&gt;）似乎可以更好地反映典型的 JavaScript 编码模式。该基准测试的参数是数千次调度迭代的具体次数。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Binary trees：&lt;/strong&gt;该程序来自“计算机语言基准游戏”[10]。 在循环内，它构建一个指定深度的完整二叉树，对其执行简单的计算，然后回收内存分配。该基准测试用以测试内存分配子系统的性能。C、Python 和 TypeScript 版本均来自“计算机语言基准游戏”。为了更好地对齐 TypeScript 版本，我们将 Python 版本修改为使用类。&lt;/p&gt;
@@ -345,8 +346,8 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;5&quot;
-        title=&quot;5&quot;
+        alt=&quot;图5：测量三种MCU上各种形式的成员访问所需的时间周期，每项形式的操作运行一百万次，然后将测得的平均耗时换算成时间周期。&quot;
+        title=&quot;图5：测量三种MCU上各种形式的成员访问所需的时间周期，每项形式的操作运行一百万次，然后将测得的平均耗时换算成时间周期。&quot;
         src=&quot;/static/88fe44df203213ab1586eba0096addde/fcda8/figure_5.png&quot;
         srcset=&quot;/static/88fe44df203213ab1586eba0096addde/12f09/figure_5.png 148w,
 /static/88fe44df203213ab1586eba0096addde/e4a3f/figure_5.png 295w,
@@ -359,6 +360,7 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图 5&lt;/strong&gt;：测量三种 MCU 上各种形式的成员访问所需的时间周期，每项形式的操作运行一百万次，然后将测得的平均耗时换算成时间周期。&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
@@ -376,8 +378,8 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;6&quot;
-        title=&quot;6&quot;
+        alt=&quot;图6：测量三个MCU上各种语言基础构造消耗的时间周期。双精度数学运算包括分配和摊派GC的耗时。&quot;
+        title=&quot;图6：测量三个MCU上各种语言基础构造消耗的时间周期。双精度数学运算包括分配和摊派GC的耗时。&quot;
         src=&quot;/static/888e98a20194631e031a2c35a36e55ba/fcda8/figure_6.png&quot;
         srcset=&quot;/static/888e98a20194631e031a2c35a36e55ba/12f09/figure_6.png 148w,
 /static/888e98a20194631e031a2c35a36e55ba/e4a3f/figure_6.png 295w,
@@ -390,10 +392,43 @@ movs rY, #V (when X != Y)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图 6&lt;/strong&gt;：测量三个 MCU 上各种语言基础构造消耗的时间周期。双精度数学运算包括分配和摊派 GC 的耗时。&lt;/p&gt;
 &lt;p&gt;STS VM 比 ARM Thumb STS 慢 5-6 倍，除了高频的浮点 nbody 基准测试外，该基准测试的大部分运算都是在 C++ 运行时函数中执行的。 但是，STS VM 仍然比解释器快得多，
 这表明类的静态内存布局对 STS 的整体性能大有裨益。&lt;/p&gt;
 &lt;p&gt;STM32 和 SAMD 上的实验结果差异很小（约 0.1％）。在 BCM 核心上，我们运行了 10 次基准测试，并选择了最快的结果作为实验数据。&lt;/p&gt;
 &lt;h2&gt;4.3 成员访问（member access）的性能&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e8869179c214a3b7a93b353d08b15731/4ad3a/figure_7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 41.891891891891895%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABSUlEQVQoz0WS2Y6CUBBE+f8P80UFt7hG3DfUuKKCYE1OTZzp5Iamb3dVdUFwOBzU7/fV6/U0nU7Vbredz+dzvV4v7fd7dTodDYdDLZdLtVotdbtd39NLbbPZqNlsCqxgvV6rUqmoWq3qeDwqSRJRu16v+nw+ulwuJmg0Gh6YzWaq1+sGgQgxgNdqNdeC3W7nZobiOLYSDsC3280qsyzzIO/EZDJx/ng83EusVqt/wDAMfQEjK41GI0VRaJA0TfV+v3U6nQxOTh+AeZ67Xpal+6gFKImiyAoHg4H9QQF+Pp9PFUXhQWy43+9WwyZYATgeEtzZw+12a4Ww/iqLnOMfzIDBTI0h1ucDoAjvEEGMx2OBZUBUwcoTJV+vCABQuVgsXIeIDQBHJXlZFp7nj/hbmS+HfzRgLk/8xTcO7+fz2YCoIf/WIWR1xP0AMltPYkO1RAYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;图7&quot;
+        title=&quot;图7&quot;
+        src=&quot;/static/e8869179c214a3b7a93b353d08b15731/fcda8/figure_7.png&quot;
+        srcset=&quot;/static/e8869179c214a3b7a93b353d08b15731/12f09/figure_7.png 148w,
+/static/e8869179c214a3b7a93b353d08b15731/e4a3f/figure_7.png 295w,
+/static/e8869179c214a3b7a93b353d08b15731/fcda8/figure_7.png 590w,
+/static/e8869179c214a3b7a93b353d08b15731/efc66/figure_7.png 885w,
+/static/e8869179c214a3b7a93b353d08b15731/4ad3a/figure_7.png 1152w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图7&lt;/strong&gt;：在STM32上去除某些优化后运行时间的增加程度。&lt;/p&gt;
 &lt;p&gt;图 5 记录了各种形式的成员访问（请参阅 3.4 节）的耗时测算，表格的前四行是循环进行对&lt;code class=&quot;language-text&quot;&gt;this&lt;/code&gt;字段访问、具有动态子类型检查的访问、通过接口查找的访问、对动态映射对象访问的耗时。&lt;/p&gt;
 &lt;p&gt;对于函数，本图列举了直接调用、对非虚拟类方法（non-virtual）的调用、对虚拟类方法的调用、对接口的调用的耗时情况。我们也区分了是否在&lt;code class=&quot;language-text&quot;&gt;this&lt;/code&gt;上调用，因为这样调用不需要进行动态类型检查，其他的非接口调用也是这样的。&lt;/p&gt;
 &lt;p&gt;子类型检查（subtype check）决定了变量的虚拟和非虚拟调用，它的执行方式有细微的不同，而最终对应的性能几乎一致。接口查找不需要类型检查（因为该方法是从调用它的对象的虚函数表中查找的），这让它的速度并没有落后常规调用很多。动态映射查找取决于对象字段的数量，但其它的耗时大多和输入没有关系。&lt;/p&gt;
