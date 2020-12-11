@@ -132,6 +132,38 @@ void function() {
 <p>STS 简单编译的编译方案（将在第 3 节详述）在一系列小型 JavaScript 基准测试中取得了惊人的优秀表现，性能可以和 V8 等先进前沿的 JIT 编译器媲美，而所需的内存则比他们低几个数量级（详情见第 4 节）；同时，也比嵌入式解释器快至少一个数量级。评估的一个特别之处是对处理类、接口和动态映射（dynamic maps）的字段/方法查找的不同策略的比较。</p>
 <h3>1.2 MakeCode：为教学而生的简单嵌入式开发</h3>
 <p>STS 是 MakeCode 框架支持的核心语言（详情见 <a href="https://makecode.com">https://makecode.com</a> ；该框架及诸多编辑器已按 MIT 协议开源，请见 <a href="https://github.com/microsoft/pxt">https://github.com/microsoft/pxt</a> ）。MakeCode 支持为单片机设备创造自定义的嵌入式编程实验。每个 MakeCode 实验（我们一般称其为编辑器（editors），虽然它们也包含了模拟器、API、教程、文档等）通过 STS 针对特定设备或设备类型进行编程。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/a913b34f79924eebb0994378820a56ef/b8bf8/figure_3.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 58.10810810810811%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAACxKAAAsSgF3enRNAAACwElEQVQoz0WS24sTZxjG89cV8aboRZGW7ZUIgodaLN11D1q7rAesll60UEpLBQUv1Ethi4dVt+0uq0E3SZM4JjOZUw6TmUzmkMkk2V/fTIJePLx87/fxvO/zfE9OWVqhdGGV8vlvKX6ziL28ird2CW/5Aq+Xlni8skbj+TOcrSfoZ09jn/8ad3nxIy6u4F1Zx7t5HXf9O3K3dY9fOjG/OTE/KzpvNRVSlyRuEgUqo9DCN6sEdoW4rzFJLQ5GzY9IbQ6G0kvMrOYuqw5XOwEb3QFX/mtQ3CtApDOMGoS+yjgycfQyTqNI0FEY9FWGYQNGtgy2BFKFeIqM0CqU0esGQb3Og51ddt+UYGCSxtLzakShRtir43ffEfVqjAcGIxk4jk1GsSVVzrGe9TPCfnGPbvUNE7XIltRNNc8omW6oE8mGXqdGUyvTUvdpGgW8dgXffccgaJAElkATK+qytTYjrAuBn1i0nCqbSomX+Vcg51QIA6+eod3cp2uXCPz3pDIsk5hJnWPc/GBB7qenz7j5aJMfX7xkLV8mvzMjTMSnwFNx2g007S2mVcIV2VPpo6mHsg2JLdbYInmGNBJC5eQpSqfOUjxzjoe//k6lpchjMyMMe6rAwHhfZPt1kT+fa9zeNrjzr8Uf2xZ/FSzx05a3c4gFuWThS9zjJ4i+WGDvxi3MoSMS7MzD6WccDG1cW0GpFKgoBu1uhN3uY7UCuq4nUq25dGsmuXXoMOqnRzA/OcSLS+tYU0K5SOYepgOdOKzTkE+rKRq+F9Bz+3jdQDz1so+YiEVjyeEUuZqQFT47RuXIUTav/SCEHZlmZjkcSJBDX8M09zGMKppawXXEBn8aq6ZEZZY9DtqALDJpkfv+8yVufXWdjYVlFk9uUHbbTAY9nG6LajUv8lukoT6PhTkP8wwZmZD8vfOUu/fv8c/uFv8DVjVVZPphcH0AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="3"
+        title="3"
+        src="/static/a913b34f79924eebb0994378820a56ef/fcda8/figure_3.png"
+        srcset="/static/a913b34f79924eebb0994378820a56ef/12f09/figure_3.png 148w,
+/static/a913b34f79924eebb0994378820a56ef/e4a3f/figure_3.png 295w,
+/static/a913b34f79924eebb0994378820a56ef/fcda8/figure_3.png 590w,
+/static/a913b34f79924eebb0994378820a56ef/efc66/figure_3.png 885w,
+/static/a913b34f79924eebb0994378820a56ef/c83ae/figure_3.png 1180w,
+/static/a913b34f79924eebb0994378820a56ef/b8bf8/figure_3.png 1728w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
 <p>大多数 MakeCode 编辑器主要以 Web 应用的形式部署，其中包含了用以开发 STS 程序的功能齐全的文本编辑器，它基于 Monaco（VS Code 使用的编辑器组件）；还包含了基于 Google Blockly 框架的图形化编程界面（注释中的 STS 元数据定义了 STS 的 API 到 Blockly 的映射，MakeCode 会在 Blockly 和 STS 之间进行交互）。</p>
 <p>MakeCode 编辑器和原先 BBC micro:bit 和 Adafruit CPX（详情见 <a href="https://makecode.microbit.org/">https://makecode.microbit.org/</a> 和 <a href="https://makecode.adafruit.com/">https://makecode.adafruit.com/</a> ）的编程实验至今已经覆盖了全球的数百万学生和教师。</p>
 <p>STS 支持包（package）的概念，即 STS、C++、汇编代码文件的集合，并支持把其他的包当做依赖。第三方开发者已经利用这样的能力对 MakeCode 编辑器进行扩展，使之可以支持各种开发板的外接设备（micro:bit 的相关示例见 <a href="https://makecode.microbit.org/extensions">https://makecode.microbit.org/extensions</a> ）。值得注意的是，大多数包完全用 STS 编写从而避免了不安全 C/C++ 的陷阱，这主要得益于高效的 STS 编译器以及通过数/模针脚（GPIO、PWM、servos）和一些协议（I2C 和 SPI）访问硬件实现的底层 STS API。</p>
@@ -290,6 +322,38 @@ movs rY, #V (when X != Y)</code></pre></div>
 <p>树莓派可以运行 Node.js，所以它的硬件条件超出了我们设定的内存范围，但我们使用它来作为 V8 的性能参考。通常来说，ARM11 核心的内存访问速度比 M4F 核心（整体 RAM 在性能上与 L1 缓存类似）的访问速度要慢。M4F 核心上的浮点运算器是单精度的，所以没有用于基准测试，我们转而使用了 ARM11 上的浮点运算器。</p>
 <p>Duktape 使用 BCM 上的默认配置进行编译。在 STM 上，使用默认配置会立刻耗尽内存，所以我们选用了适用于低内存的配置文件（还启用了 fast integer 选项）。我们用的是官方的 ARMv6 Node.js 二进制文件、PiCore Linux 附带的 Python 环境、STM32 的官方 MicroPython 二进制文件。</p>
 <h2>4.1 基准测试</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/2e065e00598fd0c51107ab1c6873341c/9efb3/figure_4.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 40.54054054054054%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABLElEQVQoz1WS2a6CQBBE+f8/400IhBgQWWURFUSWgLHN6ZsxuQ+VmamZqq5usF6vlyzLItM0SV3X0ve9rp7nie/7cjgcxHVdiaJI34zjKG3bSpIkvzsQBIHc73exsiyT4/GoRkVRKBBcr1fJ81yF5/NZeAePKE1TMTruTqeT6uCsOI61wr7vWp0UBuu6KoZhUKPH4yF0xB6OghSuqkrXruv+DGlv2zYlSDrPs6Yxe3jG0DSNcpwxv1wuao4h98AKw1Bs29boEDxAQFucMTYrBogxIyEdkRg8n08tZjEH13W0Oi3cbjeNX5aliuEwhDdzYo8YE2AMKaKGjuPI+/3+tYwhacxcTELMSW5myHwZCcBUDfmKtEwiWqESCUiM0MDMjHf8ZnzEz+fzD4T6AjsWVT+OxgWjAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="4"
+        title="4"
+        src="/static/2e065e00598fd0c51107ab1c6873341c/fcda8/figure_4.png"
+        srcset="/static/2e065e00598fd0c51107ab1c6873341c/12f09/figure_4.png 148w,
+/static/2e065e00598fd0c51107ab1c6873341c/e4a3f/figure_4.png 295w,
+/static/2e065e00598fd0c51107ab1c6873341c/fcda8/figure_4.png 590w,
+/static/2e065e00598fd0c51107ab1c6873341c/efc66/figure_4.png 885w,
+/static/2e065e00598fd0c51107ab1c6873341c/c83ae/figure_4.png 1180w,
+/static/2e065e00598fd0c51107ab1c6873341c/9efb3/figure_4.png 1894w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
 <p>我们使用以下的一系列基准测试。我们尝试使用在 TypeScript/JavaScript 和 Python 中等效的代码，然后对比运行时间而不是语言。（更具体地说，Python fann 使用的算法不同于 C 或 JavaScript 版本，我们对其进行了修改，使它们使用相同的算法且直接进行数组访问；Python 二进制文件更改为使用类而不是元组。之所以进行这些更改，是因为我们想测试数组访问和类实现的性能。我们没有改变 richards 或 nbody 的实现。）由于 C 程序内存不安全且使用静态的整数表示形式，所以它们不一定具有可比性。</p>
 <p><strong>Richards：</strong>Martin Richard’s 基准测试模拟操作系统的调度器队列。我们从 JetStream 基准套件[11]中获取 JavaScript 来源，并将原型初始化替换为等效的类代码，在需要的时候添加类型信息，从而将它们转换为 TypeScript 代码。该基准测试使用许多类以及用于不同调度程序任务的派生方法，用以测试对象属性访问性能。我们还使用了该基准测试的 C 和 Python 版本，它们使用单一结构以及 switch 语句和函数指针执行任务。 我们开发了等效的 TypeScript 代码（标记为 <em>richards2</em>），但是基于类的版本（<em>richards</em>）似乎可以更好地反映典型的 JavaScript 编码模式。该基准测试的参数是数千次调度迭代的具体次数。</p>
 <p><strong>Binary trees：</strong>该程序来自“计算机语言基准游戏”[10]。 在循环内，它构建一个指定深度的完整二叉树，对其执行简单的计算，然后回收内存分配。该基准测试用以测试内存分配子系统的性能。C、Python 和 TypeScript 版本均来自“计算机语言基准游戏”。为了更好地对齐 TypeScript 版本，我们将 Python 版本修改为使用类。</p>
@@ -299,6 +363,68 @@ movs rY, #V (when X != Y)</code></pre></div>
 <p>图 4 对比了 STS 和其他运行时的性能。图中将 C 程序的运行耗时直接用毫秒单位列出，其他的耗时则以比 C 程序慢多少的差值列出，以表达对 C 的敬意。</p>
 <p>在高频属性访问（Binary 和 richards）基准测试中，STS 比解释器们要快一个数量级，比 Node.js 慢不到两倍，而且解释器的内存耗尽要比二进制上的 STS 快得多。对于直接组合计算（fann），STS 比解释器快大约一个数量级，但比 Node.js（在 V8 中使用了相当先进的优化器）慢几倍。 在浮点计算（nbody）中，STS 仍比解释器快得多，但比 Node.js 慢 20 倍，后者更好地利用了 FPU。</p>
 <p>一般来说，运行时间越长的基准测试越能表明性能。我们还列出了迭代次数较少的结果，以便能够在同一程序上直接比较 BCM 和 STM 的性能差异。 在此类程序上，JIT 预热时间在 Node.js 结果中占很大一部分。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/88fe44df203213ab1586eba0096addde/d53ff/figure_5.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.4054054054054%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAABeklEQVQoz03S164iQQwEUP7/23gAhMg558yQHnr3+KoRI1kdxq4ql7t0vV5Tv99Po9Eo3W639Hg80v1+j/1vFEWRVqtVqtVqaTwep+Vy+d0Ph8PUbrejrnQ6nVKj0QjQ7XabNptNQvL5fL7xer0idrtdEHe73bRer6NGTKfTVK1W0/l8TiWomPf7fYBNJpNYn89nOh6PEUB9Vh1QZK9GrQ6Q6CIAyQdCoRYwUp7bAe57v98B0mw2Q/FsNotcHdXr9b+WoQPKvh0OhzhLxA4kBwVIOp1O5LdarTQYDNJ8Pg8/i+I/4OVyCR9cYuSR1Vkx5cC0SgkfDcDef/lyyuVyCAqFfKOKIklWNmTl+eMbIH4hMZjFYpGIQoI0ACnKbWZfDEMRr37b5qGWs4cE8JvXAUgBJq3wTxJWT4BySoUiCq0ADcp9HqCnF1OmEMDvlIEi6PV6X18RA0RqGBQCMxR3lUrlb8r5HQIDAtzZHhgVWbFcxe4Iyf/caZnCfxWhOPQq8lPFAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="5"
+        title="5"
+        src="/static/88fe44df203213ab1586eba0096addde/fcda8/figure_5.png"
+        srcset="/static/88fe44df203213ab1586eba0096addde/12f09/figure_5.png 148w,
+/static/88fe44df203213ab1586eba0096addde/e4a3f/figure_5.png 295w,
+/static/88fe44df203213ab1586eba0096addde/fcda8/figure_5.png 590w,
+/static/88fe44df203213ab1586eba0096addde/efc66/figure_5.png 885w,
+/static/88fe44df203213ab1586eba0096addde/d53ff/figure_5.png 1068w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/888e98a20194631e031a2c35a36e55ba/914c7/figure_6.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 60.810810810810814%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAABoUlEQVQoz3WTW4+CUAyE+f+/zAeJgvF+xbuioCIHNOpsvibw4O42aThw2ul0WrwkSTSdTrVYLOx5uVxUlqWccyqKovbr9arJZKLhcKj9fq8oitTr9bTdbu08Go2UZZm8w+Ggfr9vwePxWLfbTY/Hw0Ar553CJAO4XC612Ww0GAwsd7fbqdVq6Xg8yiPwfr8rz3NLxl6v1y8nBqOD9Xqtz+djhWCG0SFYXpqmwmnx+XzqP+MeAwx/v986n8/GFkloHxwD5AIGVCSQ6t/uXG6A8/m8BgQMZrDudrsmlwEiJi8IT/JfBgvuAEBLZACYgZCLljYUAPkASwJoDS35BmuA0Jd3ANkEBgLD1WplHsextQyhmiFJADLt2WxmE+cMKE4MGtMaDCnElMlBhk6nY60bIMgw49lut+X7vsIw0Ol0qltGX4oCyKoRG4ah6QgoLdcMK/0AoFKz2TSGWDWUatkBgSE5QRCYhrRNy8aQ3eGAA8iCNhoNC/gGpG3Y86cQDzjy4IDb2sAsSRNjiLjVL4jwrnDGCgcMEO4ZYLXgtE8B4tH6B1ixh+4BRyu5AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="6"
+        title="6"
+        src="/static/888e98a20194631e031a2c35a36e55ba/fcda8/figure_6.png"
+        srcset="/static/888e98a20194631e031a2c35a36e55ba/12f09/figure_6.png 148w,
+/static/888e98a20194631e031a2c35a36e55ba/e4a3f/figure_6.png 295w,
+/static/888e98a20194631e031a2c35a36e55ba/fcda8/figure_6.png 590w,
+/static/888e98a20194631e031a2c35a36e55ba/efc66/figure_6.png 885w,
+/static/888e98a20194631e031a2c35a36e55ba/914c7/figure_6.png 978w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
 <p>STS VM 比 ARM Thumb STS 慢 5-6 倍，除了高频的浮点 nbody 基准测试外，该基准测试的大部分运算都是在 C++ 运行时函数中执行的。 但是，STS VM 仍然比解释器快得多，
 这表明类的静态内存布局对 STS 的整体性能大有裨益。</p>
 <p>STM32 和 SAMD 上的实验结果差异很小（约 0.1％）。在 BCM 核心上，我们运行了 10 次基准测试，并选择了最快的结果作为实验数据。</p>
