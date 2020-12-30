@@ -1,4 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 23 Dec 2020 21:37:44 GMT</lastBuildDate><item><title><![CDATA[【WIP】2020年看过的好书]]></title><description><![CDATA[202…]]></description><link>https://tsangkalung.github.io/books-2020/</link><guid isPermaLink="false">https://tsangkalung.github.io/books-2020/</guid><pubDate>Fri, 25 Dec 2020 08:30:03 GMT</pubDate><content:encoded>&lt;p&gt;2020 年真是相当难以忘怀的一年。记得年初回到家，仍觉得是寻常的新的一年。之后疫情不断升级，也逐渐适应了线上的授课和工作。四月份和友人在街头散步，全城开始鸣笛哀悼，那一刻才恍然意识到世界在这一年被永远地改变了。今年实在是没什么必要也没有心情写总结，但是今年在大疫之中看了一些不错的书，想推荐一下。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tsang's Blog]]></title><description><![CDATA[Tsang's Blog]]></description><link>https://tsangkalung.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 30 Dec 2020 16:58:08 GMT</lastBuildDate><item><title><![CDATA[【WIP】2020年看过的两本好书]]></title><description><![CDATA[202…]]></description><link>https://tsangkalung.github.io/books-2020/</link><guid isPermaLink="false">https://tsangkalung.github.io/books-2020/</guid><pubDate>Fri, 25 Dec 2020 08:30:03 GMT</pubDate><content:encoded>&lt;p&gt;2020 年真是相当难以忘怀的一年。记得年初回到家，仍觉得是寻常的新一年。之后疫情不断升级，也逐渐适应了线上的授课和工作。四月份和友人在街头散步，全城开始鸣笛哀悼，那一刻才恍然意识到：世界在这一年被永远地改变了。至于我自己的生活，在这一年里也是按部就班符合预期，但是今年在大疫之中看了一些不错的书，想推荐一下。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;智慧七柱&lt;/strong&gt;（Seven Pillars of Wisdom）&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 194px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ed1ac8570afae00bdb775f9742866608/99c89/seven-pillars.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 154.72972972972974%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAfABQDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAMBBAIFBv/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAG3NKnHQiiNRL8RooX/xAAbEAADAQEAAwAAAAAAAAAAAAABAgMAERMjMv/aAAgBAQABBQK9fGsqgx7rexki2BVQ/wBjobNJ+lKjcpv/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAgEAABAgUFAAAAAAAAAAAAAAABABARITEyoQISQWFx/9oACAEBAAY/AvUCT1Np8LadUoqDAVaityrMr//EAB0QAQACAwADAQAAAAAAAAAAAAEAESExQVFhkfD/2gAIAQEAAT8hM93gVNEXaC5Y3GMGh4OsCFRWw/YKHJnq57Uuy/apiN1JfmaAMfuZ/9oADAMBAAIAAwAAABBX98z/xAAWEQADAAAAAAAAAAAAAAAAAAAAEBH/2gAIAQMBAT8QI//EABYRAQEBAAAAAAAAAAAAAAAAAAARAf/aAAgBAgEBPxBV1H//xAAdEAEBAAICAwEAAAAAAAAAAAABEQAhMUFRYYFx/9oACAEBAAE/EFRU8FsO0/MYaCU0qOEUR7HA7RtQG781cBgdYsA2n0xqwBhNNICDHzv5gXRBg1PO8CLU9XKwQHIIYpa/OpM1HJ70Z//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;智慧七柱&quot;
+        title=&quot;智慧七柱&quot;
+        src=&quot;/static/ed1ac8570afae00bdb775f9742866608/99c89/seven-pillars.jpg&quot;
+        srcset=&quot;/static/ed1ac8570afae00bdb775f9742866608/a80bd/seven-pillars.jpg 148w,
+/static/ed1ac8570afae00bdb775f9742866608/99c89/seven-pillars.jpg 194w&quot;
+        sizes=&quot;(max-width: 194px) 100vw, 194px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;阿拉伯沙漠。由飄砂與滾燙巨石組成的一片汪洋。在這些沙丘之下，蘊藏著黑色金礦石油。400 多年来，鄂圖曼帝国統治了阿拉伯沙漠，但鄂圖曼的統治並非從未遭到抵抗，一小股贝都因反抗军集結起來要推翻帝國。他們出手毫無預兆，並且出擊完就消失在沙漠當中。跟他們一同作戰的，還有一位英國軍官，他立下的功勛讓他有廣為人知的聲望。全世界的人都叫他——阿拉伯的勞倫斯。&lt;/p&gt;
+&lt;/blockquote&gt;</content:encoded></item><item><title><![CDATA[译文：Static TypeScript，TypeScript 的一种静态编译器实现]]></title><description><![CDATA[译者声明：本译文获得原作者授权翻译；由 Allen 审校。 作者： Thomas Ball，微软研究院，Redmond，tball@microsoft.com Peli de Halleux，微软研究院，Redmond，jhalleux@microsoft.com Michał…]]></description><link>https://tsangkalung.github.io/static-ts/</link><guid isPermaLink="false">https://tsangkalung.github.io/static-ts/</guid><pubDate>Mon, 23 Nov 2020 07:26:03 GMT</pubDate><content:encoded>&lt;p&gt;译者声明：本译文获得原作者授权翻译；由 Allen 审校。&lt;/p&gt;
 &lt;p&gt;作者：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Thomas Ball&lt;/strong&gt;，微软研究院，Redmond，tball@microsoft.com&lt;/li&gt;
