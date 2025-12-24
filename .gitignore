@@ -1,0 +1,6 @@
+/node_modules
+/package.josn
+/package-lock.josn
+/.gitignore
+/docs/.vuepress/dist
+/.DS_Store
